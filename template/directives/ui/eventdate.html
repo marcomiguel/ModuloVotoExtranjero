@@ -1,0 +1,75 @@
+<div class="row-fluid">
+	<div class="control-group-inner ng-class:{error:validate&&optional}">
+			
+			<div class="bd">	
+				<div class="control-group {{localWidthControl}} ">
+					<div class="controls">
+						<label class="control-label span1 dinline mrl mtm" >
+						   {{localLabelStart}}:
+							<span data-ng-if="localRequired" class="state-required">(<b>*</b>)</span>
+						</label>
+                        <div class="input-append date inline">
+                            <span class="Zebra_DatePicker_Icon_Wrapper">
+                                <input type="text" class="input-small datepicker"
+                                    data-ng-model="startModel" 
+								    data-date-format="d/m/Y" 
+								    data-ng-change="fnGetStartDate()" 
+								    data-ng-keyup="fnGetStartDate()" 
+								    data-ng-required="localRequired" 
+								    data-ng-trim="false" data-zdp-direction = "localNowOn" data-ui-datepicker>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </span>
+                        </div>
+                        
+						<div  data-ng-if="timePicker" style="display:inline-block " class="mll">
+								<label class="control-label"> 
+									<!--{{localLabelTimeEnd}}:
+									<span data-ng-if="localRequired" class="state-required">(<b>*</b>)</span>-->
+								</label>
+								<div class='input-append'>
+								<input class="input-small" type="text" data-ng-model="$parent.startTimeModel" data-ng-change="$parent.changeTime()" ui-timepicker>
+								</div>
+						</div>
+					</div>
+				</div> 
+				<div style="clear:both">
+				<div class="control-group {{localWidthControl}} ">
+					<div class="controls">
+						<label class="control-label span1 dinline mrl mtm">
+						   {{localLabelEnd}}:
+							<span data-ng-if="localRequired" class="state-required">(<b>*</b>)</span>
+						</label>
+                        
+                        <div class="input-append date inline">
+                            <span class="Zebra_DatePicker_Icon_Wrapper">
+                                <input type="text" class="input-small datepicker"
+                                    data-ng-model="endModel" 
+								    data-date-format="d/m/Y" 
+								    data-ng-change="fnGetEndDate()" 
+								    data-ng-keyup="fnGetEndDate()" 
+								    data-ng-required="localRequired" 
+								    data-ng-trim="false" data-zdp-direction = "localNowOn" data-ui-datepicker>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </span>
+                        </div>
+						<div  data-ng-if="timePicker" style="display:inline-block " class="mll">
+								<label class="control-label"> 
+									<!--{{localLabelTimeEnd}}:
+									<span data-ng-if="localRequired" class="state-required">(<b>*</b>)</span>-->
+								</label>
+								<div class='input-append'>
+									<input class="input-small" type="text" data-ng-model="$parent.endTimeModel" data-ng-change="$parent.changeTime()" ui-timepicker>
+								</div>
+						</div>
+					</div>
+				</div> 
+			</div>	
+		
+<!-- 		Sirce -->
+		<!-- <mensaje tipo="{{typeMessage}}" visible="validate&&optional" resetear="reset"></mensaje> -->
+				
+		
+		<!-- Sie -->
+        <div class="help-block mbm" data-ng-show="validate&&optional"><i class="icon-scytl-error"></i>{{mensajeError}}</div>
+	</div>
+</div>

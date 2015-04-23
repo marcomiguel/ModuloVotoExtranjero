@@ -1,0 +1,80 @@
+/* Time Picker */
+.control-timepicker .tableTimePicker{
+    position:absolute;
+    top:32px;
+    left:0px;
+    font-size: 12px;
+    border: 5px solid #DDE1E8;
+    padding: 0;
+    background: #fff;
+    z-index: 2;
+}
+.control-timepicker .icon-time {
+    cursor:pointer;
+}
+.control-timepicker .tableTimePicker .data td{
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+.control-timepicker .openTimerPicker {
+    margin-left: 5px;
+}
+
+.control-timepicker .tableTimePicker td {
+    border:1px solid #DDE1E8;
+}
+.control-timepicker td .btn{
+    padding: 5px 15px;
+}
+
+.back-gray{
+    display: inline-block;
+    width: auto;
+    height: 18px;
+    min-width: 16px;
+    padding: 5px 5px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    text-shadow: 0 1px 0 #ffffff;
+    background-color: #eeeeee;
+    border: 1px solid #ccc;
+}
+
+.control-timepicker .back-gray{
+    padding-bottom: 5px;
+}
+
+
+
+.control-timepicker .plusTop .btn,
+.control-timepicker .plusBottom .btn {
+    background-color:transparent;
+    background-image:none;
+    border:0 none;
+}
+
+.control-timepicker .plusTop td, .control-timepicker .plusBottom td {
+ background-color: #fcfcfc;
+}
+.control-timepicker .plusTop td:hover, .control-timepicker .plusBottom td:hover {
+ background-color: #dadee6;
+}
+
+.control-timepicker .plusTop .btn:active,
+.control-timepicker .plusBottom .btn:active,
+.control-timepicker .plusTop .btn:hover,
+.control-timepicker .plusBottom .btn:hover,
+.control-timepicker .plusTop .btn:focus,
+.control-timepicker .plusBottom .btn:focus{
+    webkit-box-shadow:0 0 0 transparent;
+    -moz-box-shadow:  0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
+    outline:0 none transparent;
+}
+.control-timepicker .tableTimePicker .data td {
+    padding-top:10px;
+    padding-bottom:10px;
+}

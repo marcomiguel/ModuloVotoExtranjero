@@ -1,0 +1,605 @@
+
+<!-- Generado -->
+<ul class="breadcrumb breadcrumb-main" id="breadcrumb-main"></ul>
+<!-- Titulo -->
+<h2>Recepción de solicitudes de traslado electoral vía web </h2>
+<div class="form-horizontal" name="frmFiltro" novalidate data-ng-init="init()">
+	<div class="mod">
+		<div class="hd">
+			<h3>Filtrar por:</h3>
+		</div>
+		<div class="bd">
+			<form class="form-horizontal" name="frmFiltro" novalidate>
+				<div class="control-group big ng-class: {error:frmFiltro.cedula.$error.uicedulanozero}">
+					<label class="control-label">Nº de cédula:</label>
+					<div class="controls">
+						<input type="text" class="input-small" name="cedula" data-ui-cedula-no-zero data-ng-model="modeloCiudadano.cedula" data-ng-keydown="enterBuscar($event, frmFiltro)">
+						<div class="help-block" data-ng-show="frmFiltro.cedula.$error.uicedulanozero">
+							<i class="icon-scytl-error"></i>Ingrese los 9 dígitos
+						</div>
+					</div>
+				</div>
+				<div class="control-group big ng-class: {error:frmFiltro.primerApellido.$error.maxlength}">
+					<label class="control-label two-line">Primer apellido: <br>
+						<span class="color-secondary fss">(Del ciudadano)</span></label>
+						<div class="controls">
+							<input type="text" class="" name="primerApellido" data-ng-model="modeloCiudadano.primerApellido" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event, frmFiltro)">
+							<div class="help-block" data-ng-show="frmFiltro.primerApellido.$error.maxlength">
+								<i class="icon-scytl-error"></i>Ingrese como máximo 100 caracteres
+							</div>
+						</div>
+					</div>
+					<div class="control-group big ng-class: {error:frmFiltro.segundoApellido.$error.maxlength}">
+						<label class="control-label two-line">Segundo apellido: <br>
+							<span class="color-secondary fss">(Del ciudadano)</span></label>
+							<div class="controls">
+								<input type="text" class="" name="segundoApellido" data-ng-model="modeloCiudadano.segundoApellido" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event, frmFiltro)">
+								<div class="help-block" data-ng-show="frmFiltro.segundoApellido.$error.maxlength">
+									<i class="icon-scytl-error"></i>Ingrese como máximo 100 caracteres
+								</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class: {error:frmFiltro.nombreCiudadano.$error.maxlength}">
+							<label class="control-label two-line">Nombre: <br>
+								<span class="color-secondary fss">(Del ciudadano)</span></label>
+								<div class="controls">
+									<input type="text" class="" name="nombreCiudadano" data-ng-model="modeloCiudadano.nombre" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event, frmFiltro)">
+									<div class="help-block" data-ng-show="frmFiltro.nombreCiudadano.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 100 caracteres</div>
+								</div>
+							</div>
+							<div class="flow-actions">
+								<!-- <button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="!(frmFiltro.cedula.$valid||(modeloCiudadano.nombre.length>0)||(modeloCiudadano.primerApellido.length>0)||(modeloCiudadano.segundoApellido.length>0))" data-ng-click="clicBuscar(frmFiltro)">Buscar</button> -->
+								<button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="frmFiltro.$invalid" data-ng-click="clicBuscar(frmFiltro)">Buscar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="bd" data-ng-show="mostrarPreloadBuscar">
+					<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+				</div>
+				<h3 data-ng-show="mostrarResultados">Resultados de la búsqueda:</h3>
+				<div class="alert alert-info" data-ng-if="listaSolicitudes.length>0"><i></i>
+					<p>Seleccione cualquiera de las solicitudes para realizar su revisión.</p>
+				</div>
+				<div class="mod" data-ng-show="mostrarResultados">
+					<div class="hd">
+						<h3><i class="icon-list"></i>Lista de solicitudes de traslado electoral</h3>
+					</div>
+					<div class="bd">
+						<div class="mod mod-lined">
+							<div class="bd" id="paginacion">
+								<div data-ui-alerta="" data-opciones="alertaListaSolicitudesVacia"></div>
+								<div data-ng-show="!alertaListaSolicitudesVacia.mostrar">
+									<div class="filters-mod">
+										<div class="filters-mod">
+											<div class="pull-left">
+												<select class="span1" data-ng-model="cantidadRegistrosModel" data-ng-change="cambioPaginacionCantidad()">
+													<option value="10">10</option>
+													<option value="20">20</option>
+													<option value="40">40</option>
+													<option value="60">60</option>
+													<option value="100">100</option>
+												</select>
+												<span>entradas</span>
+											</div>
+										</div>
+									</div>
+									<!-- table-zebra -->
+									<table class="table-zebra table-hover">
+										<thead>
+											<tr>
+												<th>N°</th>
+												<th>Nº de cédula</th>
+												<th>Nº de solicitud</th>
+												<th>Primer Apellido</th>
+												<th>Segundo Apellido</th>
+												<th>Nombre</th>
+												<th>Fecha de envío</th>
+												<th>Hora de envío</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-ng-repeat="l in listaSolicitudes" data-ng-click="clicObtenerDetalle(l,$index)" data-ng-class="{'seleccion-fila': indice==$index}">
+												<td class="mano">{{($index+1)+(cantidadRegistrosModel*(currentPage-1))}}</td>
+												<td class="mano">{{l.numeroCedula}}</td>
+												<td class="mano">{{l.numeroSolicitud}}</td>
+												<td class="mano">{{l.apellidoPaterno}}</td>
+												<td class="mano">{{l.apellidoMaterno}}</td>
+												<td class="mano">{{l.nombre}}</td>
+												<td class="mano">{{l.frontfechaHora.fecha}}</td>
+												<td class="mano">{{l.hora}}</td>
+											</tr>
+										</tbody>
+									</table>
+									<!-- /table-zebra -->
+									<pagination 
+									on-select-page="onCambiarPaginacion(page)" 
+									total-registros="totalRegistros" 
+									seleccion-mostrar="cantidadRegistrosModel"
+									num-pages="nroPaginas"
+									current-page="currentPage"
+									max-size="nroPaginasVisibles" 
+									boundary-links="true" 
+									class="pagination-small" previous-text="&lsaquo;"
+									next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+								</pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bd" data-ng-show="mostrarPreloadDatos">
+				<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+			</div>
+			<div class="mod" data-ng-show="mostrarDatos">
+				<div class="hd">
+					<h3><i class="icon-file-alt"></i>Información de la solicitud</h3>
+					<div class="actions-mod">
+						<button class="btn-link" data-ng-click="imprimirInformacionSolicitud()"><i class="icon-scytl-print"></i>Imprimir</button>
+					</div>
+				</div>
+				<div class="bd">
+					<div class="control-group big">
+						<label class="control-label">N° de Cédula:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.numeroCedula" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">N° de Solicitud:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.numeroSolicitud" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">Primer Apellido:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.apellidoPaterno" data-ng-disabled="true" class="">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">Segundo Apellido:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.apellidoMaterno" data-ng-disabled="true" class="">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">Nombre:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.nombre" data-ng-disabled="true" class="">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">Fecha de envío:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.frontfechaHora.fecha" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label">Hora de envío:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.hora" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mod" data-ng-show="mostrarDatos">
+				<div class="hd">
+					<h3>Datos de la solicitud</h3>
+				</div>
+				<div class="bd">
+					<form name="frmDatos" novalidate>
+						<div class="control-group big">
+							<label class="control-label">Nº de solicitud:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.numeroSolicitud" data-ng-disabled="true" class="input-small">
+							</div>
+						</div>
+						<div class="control-group big ng-class: {error:frmDatos.cedulaSici.$error.uicedulazero}">
+							<label class="control-label">N° de cédula:</label>
+							<div class="controls">
+								<input type="text" name="cedulaSici" data-ng-model="modeloSolicitud.numeroCedula" class="input-small" data-ui-cedula-zero>
+								<div class="help-block" data-ng-show="frmDatos.cedulaSici.$error.uicedulazero">
+									<i class="icon-scytl-error"></i>Ingrese los 9 dígitos
+								</div>
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label">Nombre:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.nombre" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label">Primer apellido:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.apellidoPaterno" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label">Segundo apellido:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.apellidoMaterno" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.conocidocomocr.$error.maxlength}">
+							<label class="control-label two-line">Conocido como:</label>
+							<div class="controls">
+								<input type="text" name="conocidocomocr" data-ng-model="modeloSolicitud.conocidoComo" class="" data-ng-maxlength="100">
+								<div class="state-required" data-ng-show="frmDatos.conocidocomocr.$error.maxlength"><i class="icon-scytl-error"></i>Longitud Máxima 100</div>
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label">Sexo:</label>
+							<div class="controls">
+								 <select data-ng-model="modeloSolicitud.sexo">
+									<option value="Masculino">Masculino</option>
+									<option value="Femenino">Femenino</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label two-line">Nombre y apellidos del padre:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.nombresPadre" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label two-line">Nombre y apellidos de la madre:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.nombresMadre" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label two-line">Lugar de nacimiento:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.lugarNacimiento" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label two-line">Fecha de nacimiento:</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.frontfechaNacimiento.fecha" data-ng-disabled="true" class="input-small">
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.numerotelefonoexterior.$error.maxlength || frmDatos.numerotelefonoexterior.$error.minlength||frmDatos.numerotelefonoexterior.$error.pattern}">
+							<label class="control-label two-line">Número de teléfono:<br>
+								<span class="color-secondary fss">(en el exterior)</span>
+							</label>
+							<div class="controls">
+								<input type="text" name="numerotelefonoexterior" data-ng-model="modeloSolicitud.telefonoExterior" class="" data-ng-required="true" data-ng-minlength="0" data-ng-maxlength="15" data-ng-pattern="/^[A-Za-z0-9]{0,15}$/">
+								<div class="state-required" data-ng-show="frmDatos.numerotelefonoexterior.$error.maxlength || frmDatos.numerotelefonoexterior.$error.minlength||frmDatos.numerotelefonoexterior.$error.pattern"><i class="icon-scytl-error"></i>Ingrese como máximo 15 dígitos</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.numerotelefonocr.$error.maxlength||frmDatos.numerotelefonocr.$error.minlength||frmDatos.numerotelefonocr.$error.pattern}">
+							<label class="control-label two-line">Número de teléfono: <br>
+								<span class="color-secondary fss">(en Costa Rica)</span>
+							</label>
+							<div class="controls">
+								<input type="text" name="numerotelefonocr" data-ng-model="modeloSolicitud.telefonoCostaRica" class="" data-ng-required="true" data-ng-minlength="8" data-ng-maxlength="8" data-ng-pattern="/^[A-Za-z0-9]{8}$/">
+								<div class="state-required" data-ng-show="frmDatos.numerotelefonocr.$error.maxlength||frmDatos.numerotelefonocr.$error.minlength||frmDatos.numerotelefonocr.$error.pattern"><i class="icon-scytl-error"></i>Ingrese los 8 dígitos</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.correo1.$error.maxlength||frmDatos.correo1.$error.pattern}">
+							<label class="control-label">Correo electrónico:</label>
+							<div class="controls">
+								<input type="text" name="correo1" data-ng-model="modeloSolicitud.correoElectronico" class="" data-ng-required="true" data-ng-maxlength="100" data-ng-pattern="/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/">
+								<div class="state-required" data-ng-show="frmDatos.correo1.$error.maxlength||frmDatos.correo1.$error.pattern"><i class="icon-scytl-error"></i>Formato de Email incorrecto</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.paisresidenciaexterior.$error.maxlength||frmDatos.paisresidenciaexterior.$error.pattern}">
+							<label class="control-label two-line">País de residencia: <br>
+								<span class="color-secondary fss">(en el exterior)</span>
+							</label>
+							<div class="controls">
+								<input type="text" name="paisresidenciaexterior" data-ng-model="modeloSolicitud.paisResidenciaExterior" class="" data-ng-required="true" data-ng-maxlength="50">
+								<div class="state-required" data-ng-show="frmDatos.paisresidenciaexterior.$error.maxlength||frmDatos.paisresidenciaexterior.$error.pattern"><i class="icon-scytl-error"></i>Ingrese como máximo 50 caracteres</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.ciudadresidenciaexterior.$error.maxlength}">
+							<label class="control-label two-line">Ciudad de residencia: <br>
+								<span class="color-secondary fss">(en el exterior)</span>
+							</label>
+							<div class="controls">
+								<input name="ciudadresidenciaexterior" type="text" data-ng-model="modeloSolicitud.ciudadResidenciaExterior" class="" data-ng-required="true" data-ng-maxlength="50">
+								<div class="state-required" data-ng-show="frmDatos.ciudadresidenciaexterior.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 50 caracteres</div>
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.direccionexterior.$error.maxlength}">
+							<label class="control-label two-line">Dirección exacta: <br>
+								<span class="color-secondary fss">(en el exterior)</span>
+							</label>
+							<div class="controls">
+								<input type="text" name="direccionexterior" data-ng-model="modeloSolicitud.direccionExacta" class="" data-ng-required="true" data-ng-maxlength="300">
+								<div class="state-required" data-ng-show="frmDatos.direccionexterior.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 300 caracteres</div>
+							</div>
+						</div>
+						<div class="control-group big">
+							<label class="control-label two-line">Domicilio electoral: <br>
+								<span class="color-secondary fss">(según cédula de identidad)</span>
+							</label>
+							<div class="controls">
+								<input type="text" data-ng-model="modeloSolicitud.domicilioElectoral" data-ng-disabled="true" class="">
+							</div>
+						</div>
+						<div class="control-group big ng-class:{error:frmDatos.direccioncr.$error.maxlength}">
+							<label class="control-label two-line">Dirección en Costa Rica <br> para recibir notificaciones:</label>
+							<div class="controls">
+								<input name="direccioncr" type="text" data-ng-model="modeloSolicitud.direccionCostaRica" class="" data-ng-required="true" data-ng-maxlength="300">
+								<div class="state-required" data-ng-show="frmDatos.direccioncr.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 300 caracteres</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="mod" data-ng-show="mostrarDatos">
+				<div class="hd">
+					<h3><i class="icon-map-marker"></i>Domicilio electoral al que se desea trasladar</h3>
+				</div>
+				<div class="bd">
+					<div class="control-group big">
+						<label class="control-label">Pais:</label>
+						<div class="controls">
+							<!--<input type="text" data-ng-model="modeloSolicitud.pais" data-ng-disabled="true" class="">-->
+							<select data-ng-init="modeloSolicitud.idPais" data-ng-model="modeloSolicitud.idPais" data-ng-change="cambiarListaConsulado(modeloSolicitud.idPais)" class="">
+								<option value="0">- Seleccione -</option>
+								<option data-ng-repeat="pais in arregloPaises" value="{{pais.idCanton}}" data-ng-selected="modeloSolicitud.idPais=={{pais.idCanton}}">{{pais.descripcion}}</option>
+							</select>
+						</div>
+					</div>
+					<!--<pre>{{modeloSolicitud.idConsulado}}</pre>-->
+					<div class="control-group big">
+						<label class="control-label">Consulado:</label>
+						<div class="controls">
+							<!--<input type="text" data-ng-model="modeloSolicitud.consulado" data-ng-disabled="true" class="">-->
+							<select data-ng-init="modeloSolicitud.idConsulado" data-ng-model="modeloSolicitud.idConsulado" data-ng-change="SeleccionarConsulado()" data-ng-disabled="!arregloPaises || modeloSolicitud.idPais==0">
+								<!-- <option value="0">{{txtComboConsulado}}</option> -->
+								<option data-ng-repeat="consulado in arregloConsulado" value="{{consulado.idDistrito}}" data-ng-selected="modeloSolicitud.idConsulado=={{consulado.idDistrito}}">{{consulado.descripcion}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label two-line">Número consecutivo de la cédula:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.consecutivoCedula" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+					<div class="control-group big">
+						<label class="control-label two-line">Fecha de vencimiento de la cédula:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="modeloSolicitud.frontfechaVencimientoCedula.fecha" data-ng-disabled="true" class="input-small">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mod" data-ng-show="mostrarDatos">
+				<div class="hd">
+					<h3><i class="icon-download-alt"></i>Adjuntos</h3>
+				</div>
+				<div class="bd">
+					<div class="control-group">
+						<div class="row-fluid">
+							<div class="span3">
+								<p class="strong">Firma</p>
+								<div id="imagen_firma">
+									<img data-ng-src="static/img/firma.png" class="bdr_img mbm" data-ng-if="adjuntos.firma.nombreArchivo===null||adjuntos.firma.nombreArchivo===''">
+									<img data-ng-src="../ver.ashx?f={{adjuntos.firma.nombreArchivo}}" class="bdr_img mbm" data-ng-if="adjuntos.firma.nombreArchivo!==null&&adjuntos.firma.nombreArchivo!==''">
+								</div>
+								<div id="detalle_firma">
+									<div>
+										<label for="checkboxFirma" class="checkbox label-min">
+											<input type="checkbox" value="" id="checkboxFirma" data-ng-model="modeloExcepcionFirma" data-ng-checked="modeloExcepcionFirma" data-ng-change="cambiarExcepcion(modeloExcepcionFirma, modeloExcepcionFotografia, modeloExcepcionIzquierda,modeloExcepcionDerecha)">
+											Enviar excepción por imagen de firma.
+										</label>
+									</div>
+									<div data-ng-if="adjuntos.firma.nombreArchivo===null||adjuntos.firma.nombreArchivo===''">
+										<p class="strong">No se adjuntó firma.</p>
+										<div class="fss"><b>Impedimento(s):</b>
+											<ul>
+												<li>{{adjuntos.firma.descripcionImpedimento}}</li>
+											</ul>
+										</div>
+										<div class="fss"><b>Detalle</b>
+											<p>{{adjuntos.firma.nombreDetalle}} - {{adjuntos.firma.cedulaDetalle}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="span3">
+								<p class="strong">Fotografía</p>
+								<div id="imagen_fotografia">
+									<img data-ng-src="../ver.ashx?f={{adjuntos.fotografia.nombreArchivo}}" class="bdr_img mbm" data-ng-if="adjuntos.fotografia.nombreArchivo!==null&&adjuntos.fotografia.nombreArchivo!==''">
+								</div>
+								<div id="detalle_fotografia">
+									<label for="checkboxFotografia" class="checkbox label-min">
+										<input type="checkbox" value="" id="checkboxFotografia" data-ng-model="modeloExcepcionFotografia" data-ng-checked="modeloExcepcionFotografia" data-ng-change="cambiarExcepcion(modeloExcepcionFirma, modeloExcepcionFotografia, modeloExcepcionIzquierda,modeloExcepcionDerecha)">
+										Enviar excepción por imagen de fotografía.
+									</label>
+								</div>
+							</div>
+							<div class="span6">
+								<p class="strong">Huellas dactilares</p>
+								<div class="row-fluid">
+									<div class="span6">
+										<div id="huella_izquierda" class="dinline-block mrl">
+											<div class="dblock fss"><b>Mano:</b> Izquierda</div>
+											<div class="dblock fss mbm"><b>Dedo:</b> {{adjuntos.dactilares.izquierda.dedo}}</div>
+											<div id="imagen_huella_izquierdo">
+												<img data-ng-src="static/img/huella_izquierda.png" class="bdr_img mbm" data-ng-if="adjuntos.dactilares.izquierda.nombreArchivo===null||adjuntos.dactilares.izquierda.nombreArchivo===''">
+												<img data-ng-src="../ver.ashx?f={{adjuntos.dactilares.izquierda.nombreArchivo}}" data-ng-if="adjuntos.dactilares.izquierda.nombreArchivo!==null&&adjuntos.dactilares.izquierda.nombreArchivo!==''" class="bdr_img mbm" style="width:104px; heigth:104px;">
+											</div>
+											<label for="checkboxMIzquierda" class="checkbox label-min">
+												<input type="checkbox" value="" id="checkboxMIzquierda" data-ng-model="modeloExcepcionIzquierda" data-ng-checked="modeloExcepcionIzquierda" data-ng-change="cambiarExcepcion(modeloExcepcionFirma, modeloExcepcionFotografia, modeloExcepcionIzquierda,modeloExcepcionDerecha)">
+												Enviar excepción por imagen de huella dactilar izquierda.
+											</label>
+											<div id="detalle_huella_izquierda" data-ng-if="adjuntos.dactilares.izquierda.nombreArchivo===null||adjuntos.dactilares.izquierda.nombreArchivo===''">
+												<p class="strong">No se adjuntó huella dactilar izquierda.</p>
+												<div class="fss"><b>Impedimento(s):</b>
+													<ul>
+														<!-- <li data-ng-repeat="i in adjuntos.dactilares.izquierda.descripcionImpedimentos">{{i.descripcion}}</li> -->
+														<li data-ng-show="adjuntos.dactilares.izquierda.descripcionImpedimentoHuella1!==''&&adjuntos.dactilares.izquierda.descripcionImpedimentoHuella1!==null">{{adjuntos.dactilares.izquierda.descripcionImpedimentoHuella1}}</li>
+														<li data-ng-show="adjuntos.dactilares.izquierda.descripcionImpedimentoHuella2!==''&&adjuntos.dactilares.izquierda.descripcionImpedimentoHuella2!==null">{{adjuntos.dactilares.izquierda.descripcionImpedimentoHuella2}}</li>
+													</ul>
+												</div>
+												<div class="fss"><b>Detalle</b>
+													<p>{{adjuntos.dactilares.izquierda.detalle}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="span6">
+										<div id="huella_derecha" class="dinline-block mrl">
+											<div class="dblock fss"><b>Mano:</b> Derecha</div>
+											<div class="dblock fss mbm"><b>Dedo:</b> {{adjuntos.dactilares.derecha.dedo}}</div>
+											<div id="imagen_huella_derecha">
+												<img data-ng-src="static/img/huella.png" class="bdr_img mbm" data-ng-if="adjuntos.dactilares.derecha.nombreArchivo===null||adjuntos.dactilares.derecha.nombreArchivo===''">
+												<img data-ng-src="../ver.ashx?f={{adjuntos.dactilares.derecha.nombreArchivo}}" data-ng-if="adjuntos.dactilares.derecha.nombreArchivo!==null&&adjuntos.dactilares.derecha.nombreArchivo!==''" class="bdr_img mbm" style="width:104px; heigth:104px;">
+											</div>
+											<label for="checkboxMDerecha" class="checkbox label-min">
+												<input type="checkbox" value="" id="checkboxMDerecha" data-ng-model="modeloExcepcionDerecha" data-ng-checked="modeloExcepcionDerecha" data-ng-change="cambiarExcepcion(modeloExcepcionFirma, modeloExcepcionFotografia, modeloExcepcionIzquierda,modeloExcepcionDerecha)">
+												Enviar excepción por imagen de huella dactilar derecha.
+											</label>
+											<div id="detalle_huella_derecha" data-ng-if="adjuntos.dactilares.derecha.nombreArchivo===null||adjuntos.dactilares.derecha.nombreArchivo===''">
+												<p class="strong">No se adjuntó huella dactilar derecha.</p>
+												<div class="fss"><b>Impedimento(s):</b>
+													<ul>
+														<li data-ng-show="adjuntos.dactilares.derecha.descripcionImpedimentoHuella1!==''&&adjuntos.dactilares.derecha.descripcionImpedimentoHuella1!==null">{{adjuntos.dactilares.derecha.descripcionImpedimentoHuella1}}</li>
+														<li data-ng-show="adjuntos.dactilares.derecha.descripcionImpedimentoHuella2!==''&&adjuntos.dactilares.derecha.descripcionImpedimentoHuella2!==null">{{adjuntos.dactilares.derecha.descripcionImpedimentoHuella2}}</li>
+													</ul>
+												</div>
+												<div class="fss"><b>Detalle</b>
+													<p>{{adjuntos.dactilares.derecha.detalle}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mod" data-ng-show="mostrarDatos">
+				<div class="hd">
+					<h3>Observaciones</h3>
+				</div>
+				<div class="bd">
+					<form name="frmObservaciones" novalidate>
+	                	<div class="control-group small ng-class: {error:frmObservaciones.observacionesComentarios.$error.maxlength}">
+	                		<label class="control-label two-line strong">Observaciones / Comentarios:</label>
+	                		<div class="controls">
+	                			<textarea class="span9" rows="5" name="observacionesComentarios" data-ng-model="modeloSolicitud.observacionesComentariosSolicitud" data-ng-maxlength="300"></textarea>
+	                			<div class="state-required" data-ng-show="frmObservaciones.observacionesComentarios.$error.maxlength">
+	                				<i class="icon-scytl-error"></i>Ingrese como máximo 300 caracteres
+	                			</div>
+	                		</div>
+	                	</div>
+	                	<p class="strong fss">Excepciones:</p>
+						        <div class="control-group small">
+							        <div class="row-fluid">
+								        <div class="span6">
+									        <label data-ng-repeat="i in listaExcepciones_1">
+										        <input type="checkbox" value="" id="checkbox{{i.idExcepcion}}" data-ng-model="i.seleccionado" data-ng-checked="i.seleccionado" data-ng-change="cambiarListaExcepciones_1()">
+										        {{i.descripcionExcepcion}}
+									        </label>
+								        </div>
+								        <div class="span6">
+									        <label data-ng-repeat="i in listaExcepciones_2">
+										        <input type="checkbox" value="" id="checkbox2{{i.idExcepcion}}" data-ng-model="i.seleccionado" data-ng-checked="i.seleccionado" data-ng-change="cambiarListaExcepciones_2()">
+										        {{i.descripcionExcepcion}}
+									        </label>
+								        </div>
+							        </div>
+						        </div>
+	                </form>
+				</div>
+			</div>
+			<div class="ft mbl" data-ng-show="mostrarDatos">
+				<div class="actions-page text-center">
+					<button type="button" class="btn btn-blue" id="btnSICI" data-ng-disabled="disabledBotonEnviar||frmDatos.cedulaSici.$invalid || frmObservaciones.observacionesComentarios.$invalid || frmDatos.conocidocomocr.$invalid || frmDatos.numerotelefonoexterior.$invalid || frmDatos.numerotelefonocr.$invalid || frmDatos.correo1.$invalid || frmDatos.paisresidenciaexterior.$invalid || frmDatos.ciudadresidenciaexterior.$invalid || frmDatos.direccionexterior.$invalid || frmDatos.direccioncr.$invalid" data-ng-click="clicEnviar()">Enviar al SICI</button>
+				</div>
+			</div>
+			<div data-ui-alerta="" data-opciones="alertaEnviar"></div>
+			<!-- lightbox cuando la fecha vencio-->
+			<div id="popup_excepciones" class="modal modal-40 hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i></i>
+					</button>
+					<h3>Advertencia</h3>
+				</div>
+				<div class="modal-body fss">
+					<p>Debe seleccionar al menos una excepción.
+						<p>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-blue rfloat" data-dismiss="modal" aria-hidden="true">Aceptar</button>
+						</div>
+					</div>
+					<!-- /lightbox cuando la fecha vencio-->
+
+					<!-- lightbox cuando el usuario buscado no existe-->
+					<div id="advertencia" class="modal modal-40 hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<i></i>
+							</button>
+							<h3>Advertencia</h3>
+						</div>
+						<div class="modal-body fss">
+							<p>Ud. se encuentra con impedimento debido a que no está empadronado o tiene anotaciones o restricciones en el asiento de nacimiento.<p>
+								<p>Por favor acérquese al consulado más cercano.</p>
+								<button class="btn-link phm text-center" >
+									<i class="icon-scytl-print"></i>Imprimir
+								</button>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-blue rfloat"><i class="icon-scytl-print"></i>Imprimir</button>
+							</div>
+						</div>
+						<!-- /lightbox cuando el usuario buscado no existe-->
+					</div>
+
+<!-- <div class="mod" data-ng-controller="testDirectivasController">
+	<div class="hd">
+		<h4><i class="icon-list"></i>Paginación</h4>
+	</div>
+	<div class="bd">
+        <div class="filters-mod">
+            <div class="pull-left">
+                <select class="span1" data-ng-model="maximoPorPagina" data-ng-change="obtenerRegistros(1); ">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                </select>
+                <span>entradas</span>
+            </div>
+        </div>
+		<div class="row-fluid table-fixed">
+            <table class="table table-zebra table-hover">
+                <thead>
+                    <tr>
+                        <th class="ctxt">Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="registro in registros">
+						<td>{{registro.descripcion}}</td>
+					</tr>
+                </tbody>
+            </table>
+        </div>
+        <pagination 
+			on-select-page="obtenerRegistros(page)" 
+			total-registros="totalRegistros" 
+			seleccion-mostrar="maximoPorPagina"
+			num-pages="nroPaginas"
+			current-page="paginaActual"
+            max-size="nroPaginasVisibles" 
+			boundary-links="true" 
+            class="pagination-small" previous-text="&lsaquo;"
+            next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+		</pagination>
+	</div>
+</div>	 -->

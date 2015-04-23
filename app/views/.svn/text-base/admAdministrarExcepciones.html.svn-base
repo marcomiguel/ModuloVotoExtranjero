@@ -1,0 +1,59 @@
+	<div data-ui-alerta="" data-opciones="alertaParametros">
+    </div>
+	
+    <!-- Titulo -->
+    <h2>Administrar excepciones</h2>
+	<form class="form-horizontal" name="frmFiltro" novalidate >
+  	<!-- Listado -->
+    <div class="mod" id="tablaExcepciones"> 
+    <div class="hd">
+        <h3><i class="icon-list"></i> Lista de excepciones</h3>
+    </div>
+    <div class="bd">
+
+        <div class="mod mod-clean">
+            
+            
+			<div class="mbm row-fluid" data-ng-class="{'table_header_fixed':arregloExcepciones.length > 10}" data-ng-show="arregloExcepciones.length > 0">
+				<div data-ng-class="{'table_header_top':arregloExcepciones.length > 10}" class="mb0" > 
+					<table class="table-zebra" data-ng-show="arregloExcepciones.length>0" data-ng-class="{'table_header_fixed': arregloExcepciones.length > 10}" >
+						<thead  >
+							<tr>
+								<th class="ctxt" width="10%">N°</th>
+								<th class="ctxt" width="20%">Código</th>
+								<th class="ctxt" width="60%">Descripción</th>
+								<th class="ctxt" width="10%">Habilitado</th>
+							</tr>
+						</thead>
+						
+					</table>
+				</div>
+				<div data-ng-class="{'table-y-300': arregloExcepciones.length > 10}">
+					<table class="table-zebra table-hover">
+						<tbody>
+							<tr data-ng-repeat="objeto in arregloExcepciones" >
+								<td class="ctxt" width="10%" >{{$index+1}}</td>
+								<td class="ctxt" width="20%">{{objeto.excepcionCodigoSICI}}</td>
+								<td width="60%">{{objeto.descripcionExcepcion}}</td>
+								<td class="ctxt" width="10%"><input type="checkbox" data-ng-model="objeto.flagHabilitadoExcepcion" data-ng-true-value="{{global.general.activar}}" data-ng-false-value="{{global.general.desactivar}}" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+        </div>
+   
+    <!-- Fin listado -->
+    <fieldset class="ft">
+        <div class="actions-page text-center">
+			<button class="btn btn-blue" data-ng-show="mostrarBotonGuardar" data-ng-disabled="deshabilitarBotonGuardar" data-ng-click="guardarExcepciones(frmFiltro)">
+			 Guardar
+            </button>
+        </div>
+    </fieldset>
+
+    <div data-ui-alerta="" data-opciones="alertaExcepciones"></div>
+
+  </div>
+  </form>

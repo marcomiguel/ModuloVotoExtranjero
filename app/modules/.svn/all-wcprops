@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/CostaRicaSIE/!svn/ver/12043/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules
+END
+filters.js
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/CostaRicaSIE/!svn/ver/11720/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/filters.js
+END
+pagination.js
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/CostaRicaSIE/!svn/ver/12043/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/pagination.js
+END
+constants.js
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/CostaRicaSIE/!svn/ver/11720/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/constants.js
+END
+factories.js
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/CostaRicaSIE/!svn/ver/11720/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/factories.js
+END
+directives.js
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/CostaRicaSIE/!svn/ver/11720/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/directives.js
+END
+services.js
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/CostaRicaSIE/!svn/ver/12043/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/app/modules/services.js
+END

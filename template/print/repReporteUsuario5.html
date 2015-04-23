@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="ngApp">
+    <head>
+        <meta charset="utf-8">
+        <title>SIE, Sistema de información electoral</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte-print.css" media="print" />
+        <!--[if IE]>
+	    <link rel="stylesheet" type="text/css" href="../../static/css/reporte-print-ie.css" media="print" />
+	    <![endif]-->
+        <style type="text/css">
+            .vmiddle{
+                vertical-align: middle;
+            }
+            .ctxt{
+                text-align: center;
+            }
+            .ltxt{
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div> -->
+        <div data-ng-controller="appCtrl">
+            <div id="wrap">
+                <div class="preload-print" data-ng-show="preload"></div>
+                <div class="btn-print" data-ng-show="btnprint">
+                    <button class="btn btn-large btn-blue" onclick="window.print();"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+                <div class="wrap">
+                    <div style="height:24cm; overflow:hidden">
+                        <h3 class="sub-title-main" style="border-bottom: 1px solid black;text-align:center">TRIBUNAL SUPREMO DE ELECCIONES<BR/>SISTEMA DE TRASLADO ELECTORAL PARA VOTO EN EL EXTRANJERO</h3><br/>
+						<h3>Reporte Histórico de un Usuario</h3>
+						<div class="separacion">
+                            &nbsp;
+                        </div>
+                        <table class="sinrelleno" >
+                            <tbody>
+                                <tr>
+									<td width="25%">N° de Cédula:</td>
+                                    <td style="text-align:left">{{parametros.cabecera.cedula}}</td>
+                                </tr>
+								<tr>
+									<td>Nombres:</td>
+                                    <td style="text-align:left">{{(parametros.cabecera.nombres)}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Apellidos:</td>
+                                    <td style="text-align:left">{{(parametros.cabecera.apellidos)}}</td>
+                                </tr>
+								<tr>
+									<td>Perfil:</td>
+                                    <td style="text-align:left">{{(perfil)}}</td>
+                                </tr>
+								<tr>
+									<td>Permisos asociados:</td>
+                                    <td style="text-align:left">{{(permiso)}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Estado del Usuario:</td>
+                                    <td style="text-align:left">{{(estado)}}</td>
+                                </tr>
+							</tbody>
+                        </table>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+                        <div>
+                            <div>
+                                
+								<table>
+									<thead>
+										<tr>
+                                            <th class="ctxt vmiddle" width="10%">N° de cédula</th>
+                                            <th class="ctxt vmiddle" width="15%">Nombres y apellidos</th>
+                                            <th class="ctxt vmiddle" width="15%">Perfiles que tiene</th>
+                                            <th class="ctxt vmiddle" width="50%">Permisos asociados al perfil</th>
+                                            <th class="ctxt vmiddle" width="10%">Estados que ha tenido un usuario</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!--<tr data-ng-repeat="item in listaReporte5" data-ng-switch on="item.opcion">-->
+                                          <!--  <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                {{item.numeroCedula}}
+                                            </td>
+                                            <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                {{item.nombreApellido}}    
+                                            </td>
+                                            <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c">
+                                                {{item.perfil[item.indice-1].perfil}}   
+                                            </td>
+                                            <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                                {{item.perfil[item.indice-1].perfil}}    
+                                            </td>
+                                            <td class="ctxt vmiddle" width="50%" data-ng-switch-when="c">
+                                                <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                                    {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                                </span>  
+                                            </td>
+                                            <td class="ctxt vmiddle" width="50%" data-ng-switch-when="s">
+                                                <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                                    {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                                </span>
+                                            </td>
+                                            <td class="ltxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}"> 
+                                               
+                                                <ul style="list-style-type:none;  margin:0; padding:0;">
+                                                    <!--<li data-ng-repeat="i in item.estadoUsuario">
+                                                        {{i.estado}} - {{formatearFecha(i.fecha)}}
+                                                    </li>-->
+                                             <!--   </ul>
+                                            </td>-->
+                                          <tr data-ng-repeat="lr in listaReporte5">
+                                                <td class="ctxt vmiddle" width="10%" rowspan="{{listaTablaCedula[$index].combinado}}" data-ng-show="{{listaTablaCedula[$index].oculto}}">{{lr.numeroCedula}}</td>
+                                                <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaNombre[$index].combinado}}" data-ng-show="{{listaTablaNombre[$index].oculto}}">{{lr.nombreApellido}}</td>
+                                                <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaPerfil[$index].combinado}}" data-ng-show="{{listaTablaPerfil[$index].oculto}}">{{lr.perfil}}</td>
+                                                <td class="ctxt vmiddle" width="40%" rowspan="{{listaTablaPermisos[$index].combinado}}" data-ng-show="{{listaTablaPermisos[$index].oculto}}">
+                                                    <span data-ng-repeat="l in lr.permisosAsociados">
+                                                        {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                                    </span>
+                                                </td>
+                                               <td class="ctxt vmiddle" width="20%">
+                                                   <ul style="list-style-type:none;">
+                                                        <li data-ng-repeat="i in lr.estadoUsuario">
+                                                            {{i.estado}} - {{formatearFecha(i.fecha)}}
+                                                        </li>
+                                                    </ul>   
+                                                </td>
+                                        </tr>
+									</tbody>
+								</table>
+                            </div>
+                        </div>
+                    </div>
+                    <!----  PIE DE PAGINA ---->
+                    <div style="border-top: 1px solid black ;">
+                        <span>
+                            <b>Fecha de impresión:</b> {{fechaPiePagina}}
+                        </span>
+                        <!-- <span style="float: right;">1/{{totalPaginas}}</span> -->
+                        <span style="float: right;">1/1</span>
+                    </div>
+					          <!--<div class="page-break"></div>-->
+                    <div data-ng-class="{'page-break':historicoPagResto.length > 0}"></div>
+                </div>
+               <!-- PAGINA 2 -->
+                <div data-ng-repeat="pagina in historicoPagResto" data-ng-init="indice = $index+1; cantidadPag = listaCantidadPaginaImpresasEstados.length">
+                    <div class="wrap">
+                        <div style="height:24cm; overflow:hidden">
+                            <div class="wrap_pag" style="padding:40px 0 20px 0;">
+                                <!-- Siguientes paginas -->
+								<h3 class="sub-title-main" style="border-bottom: 1px solid black ;">Reporte de Usuarios</h3>
+								<div class="separacion">
+									&nbsp;
+								</div>
+								<div>
+									<!-- <table class="table table-bordered">
+										<thead>
+										<tr>
+											<th>PAÍS</th>
+											<th>CONSULADO</th>
+											<th>GÉNERO</th>
+											<th>ESTACIÓN</th>
+											<th>TOTAL DE SOLICITUDES</th>
+										</tr>
+									</thead>
+										<tbody>
+											<tr data-ng-repeat="lds in estadisticasPagResto">
+											
+												<td>{{lds.pais}}</td>
+												<td>{{lds.consulado}}</td>
+												<td>{{lds.genero}}</td>
+												<td>{{lds.estacion}}</td>
+												<td>{{lds.totalSolicitudes}}</td>
+											</tr>
+										</tbody>
+									</table> -->
+								</div>
+                            </div>
+                        </div>
+                        <!----  PIE DE PAGINA ---->
+                        <div style="border-top: 1px solid black ;"><span><b>Fecha de impresión:</b> {{fechaPiePagina}}</span><span style="float: right;">{{2 + $index + historicoPagResto.length}}/{{totalPaginas}}</span></div>
+                        <div ng-class="{'page-break':!$last}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../app/data/config.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.es.js"></script>
+        <script type="text/javascript" src="../../static/js/core/jquery.appajax.js"></script>
+        <script type="text/javascript" src="../../static/js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../../app/print.js"></script>
+        <script type="text/javascript">
+            function appCtrl($scope, $timeout, ajaxFactory, hashFactory, dateFactory, printFactory) {
+
+                var ng = $scope;
+
+                ng.prRemotoGeneral = 'prGeneral.aspx/';
+
+                ng.preload = true;
+
+                /* swicth por iframe */
+                if (window.opener == null) {
+                    //poup
+                    parametrosFrame = parametrosFrame;
+                } else {
+                    //iframe
+                    parametrosFrame = window.opener.parametrosFrame;
+                }
+                /* /swicth por iframe */
+
+                ng.listaTablaCedula = [];
+                ng.listaTablaNombre = [];
+                ng.listaTablaPerfil = [];
+                ng.listaTablaPermisos = [];
+                ng.perfil = "sin perfil";
+                ng.permiso = "sin permiso";
+                ng.estado = "sin estado";
+                var obtenerParametros = function (parametros){
+                    ng.parametros = parametros;
+                    ng.perfil = parametros.perfil;
+                    ng.permiso = parametros.permiso;
+                    ng.estado = parametros.estado;
+                    ng.listaTablaCedula = parametros.listaTablaCedula;
+                    ng.listaTablaNombre = parametros.listaTablaNombre;
+                    ng.listaTablaPerfil = parametros.listaTablaPerfil;
+                    ng.listaTablaPermisos = parametros.listaTablaPermisos;
+                    console.log('parametros:', parametros);
+                    ng.listaReporte5 = parametros.lista;
+                    var listaImpresion = printFactory.datosImprimir(ng.parametros.estadisticas, 24, 3);
+                    ng.estadisticasPagPrimera = listaImpresion.listaPrimeraPagina;
+                    ng.estadisticasPagResto = listaImpresion.listaCantidadPaginasImpresas;
+                };
+
+                var obtenerPaginacion = function(){
+                    var paginas = angular.element('.wrap')
+                    angular.element.each(paginas, function(key, pagina){
+                        angular.element(pagina).find('.nroPagina').html(key + 1 + '/' + paginas.length);
+                    }); 
+                };
+
+                var obtenerFechaSistema = function () {
+                    ajaxFactory.consultar(ng.prRemotoGeneral + 'ObtenerFechaSistema', {}, function (data) {
+                        ng.safeApply(function () {
+                            if (data.success) {
+                                ng.fechaPiePagina = dateFactory.convertirDateTime(data.respuesta, 'DD/MM/YYYY');
+                                imprimir();
+                            } else {
+                                ng.preload = false;
+                            }
+                        });
+                    }, function (error) {
+                        ng.preload = false;
+                    }, function () {
+                        ng.preload = true;
+                    });
+                };
+
+                var imprimir = function () {
+                    window.focus();
+                    $timeout(function () {
+                        window.print();
+                        ng.preload = false;
+                        ng.btnprint = true;
+                    }, 250);
+                };
+
+                var init = function () {
+                    obtenerParametros(parametrosFrame);
+                    obtenerFechaSistema();
+                };
+
+                ng.safeApply = function (fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && (typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
+                ng.formatearFecha = function (fecha) {
+                    if (fecha!=undefined && fecha!=null)
+                        return moment(fecha).format('DD/MM/YYYY');
+                };
+
+                init();
+            }
+        </script>
+    </body>
+</html>

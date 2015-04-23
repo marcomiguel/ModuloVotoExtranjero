@@ -1,0 +1,8 @@
+<div class="pagination">
+<div class="pull-left legend"> <b>{{paginado.inicio}} </b>-<b> {{paginado.cantidad}}</b> de <b>{{paginado.total}}</b> registros </div>
+<div class="pull-right">
+<ul>
+  <li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" style="cursor:pointer"><a ng-click="selectPage(page.number)">{{page.text}}</a></li>
+  </ul>
+  </div>
+</div>

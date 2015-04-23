@@ -1,0 +1,35 @@
+<div class="mod">
+<h1>Demo1</h1>
+    <div class="hd">
+        <h4>Filtrar por:</h4>
+    </div>
+    <div class="bd">
+        <div class="row-fluid">
+            <form class="form-horizontal" name="myForm" novalidate>
+
+                <div class="control-group small">
+                    <label class="control-label two-line">Número de solicitud de certificación:</label>
+                    <div  class="controls">
+                        <!--<input mensaje-validar="El valor ingresado no es entero" data-ng-required="true" data-ng-minlength="4" data-ng-maxlength="6"  name="modelo" data-ng-model="data" data-validar="entero" type="text" value="" class="input-big"/>-->
+                        <input  data-ng-model="data.saludo" type="text" value="" class="input-big"/>
+
+                    </div>
+                </div>
+
+                <div class="control-group small">
+                    <label class="control-label two-line">Email:</label>
+                    <div  class="controls">
+                        <input data-mensaje-validar="Correo invalido" data-ng-required="true" name="modelo" data-ng-model="modelo2" data-validar="correo" type="text" value="" class="input-big"/>
+                    </div>
+                </div>
+
+                <div class="ft">
+                    <div class="actions-page">
+                        <button class="btn btn-blue pull-left">Back</button>
+                        <button class="btn btn-blue">Final action</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+/* CSS para inicio */
+#loading-mask {
+	background-color: white;
+	height: 100%;
+	position: fixed;/*absolute;*/
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 20000;
+	opacity:0.99;
+	filter:alpha(opacity=99); /* For IE8 and earlier */
+	/* display: none;*/
+}
+
+#loading {
+	height: auto;
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	padding: 2px;
+	z-index: 20001;
+	min-width: 300px;
+	margin-left: -150px;
+}
+
+#loading a {
+	color: #225588;
+}
+
+#loading .loading-indicator {
+	background: white;
+	color: #444;
+	font: bold 13px Helvetica, Arial, sans-serif;
+	height: auto;
+	margin: 0;
+	padding: 10px;
+}
+
+#loading-msg {
+	font-size: 10px;
+	font-weight: normal;
+}
+
+#dashboard {
+   /* display: none;*/
+}
+
+.preload {
+background:url(static/preload.gif) 0 50% no-repeat;
+line-height:18px;
+padding-left:25px;
+}
+
+.subsub-menu>ul {
+display: none;
+}
+
+#contenedor-principal #lateral-menu .activo ul {
+display: block;
+}
+
+.activado{
+color: #234b77 !important;
+font-weight: bold !important;
+}
+
+.breadcrumb{
+display: none !important;
+}
+
+#cabecera #cambioproceso{
+right: 0 !important;
+}

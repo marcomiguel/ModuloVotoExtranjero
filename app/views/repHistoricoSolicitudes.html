@@ -1,0 +1,189 @@
+
+	<ul class="breadcrumb breadcrumb-main" id="breadcrumb-main">
+		<!-- Generado -->
+	</ul>
+	<!-- Titulo -->
+	<h2>Histórico de solicitudes</h2>
+	<form class="form-horizontal" name="frmFiltro" novalidate data-ng-init="init()">
+		<div class="mod">
+			<div class="hd">
+				<h3>Filtrar por:</h3>
+			</div>
+			<div class="bd">
+				<div class="control-group big ng-class: {error:frmFiltro.cedula.$error.cedula}">
+					<label class="control-label">Nº de cédula:</label>
+					<div class="controls">
+					<input type="text" class="input-small" name="cedula" data-ui-cedula data-ng-model="modeloCiudadano.cedula" data-ng-required="true" data-ng-keydown="enterBuscar($event)">
+					<div class="help-block" data-ng-show="frmFiltro.cedula.$error.cedula"><i class="icon-scytl-error"></i>{{mensajesApp.HEL019}}</div>
+					</div>
+				</div>
+				<div class="control-group big ng-class: {error:frmFiltro.numeroSolicitud.$error.maxlength}" >
+					<label class="control-label">Nº de solicitud:</label>
+					<div class="controls">
+					<input type="text" class="input-small" name="numeroSolicitud" data-ng-model="modeloCiudadano.numeroSolicitud" data-ng-maxlength="12" data-ng-trim="false" data-ng-keydown="enterBuscar($event)">
+					</div>
+				</div>
+				
+				<div class="control-group big ng-class: {error:frmFiltro.primerApellido.$error.maxlength}">
+					<label class="control-label two-line">Primer apellido: <br>
+					<span class="color-secondary fss">(Del ciudadano)</span> </label>
+					<div class="controls">
+					<input type="text" class="" name="primerApellido" data-ng-model="modeloCiudadano.primerApellido" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event)">
+					</div>
+				</div>
+				<div class="control-group big ng-class: {error:frmFiltro.segundoApellido.$error.maxlength}"">
+					<label class="control-label two-line">Segundo apellido: <br>
+					<span class="color-secondary fss">(Del ciudadano)</span> </label>
+					<div class="controls">
+					<input type="text" class="" name="segundoApellido" data-ng-model="modeloCiudadano.segundoApellido" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event)">
+					</div>
+				</div>
+				<div class="control-group big ng-class: {error:frmFiltro.nombreCiudadano.$error.maxlength}">
+					<label class="control-label two-line">Nombre: <br>
+					<span class="color-secondary fss">(Del ciudadano)</span> </label>
+					<div class="controls">
+						<input type="text" class="" name="nombreCiudadano" data-ng-model="modeloCiudadano.nombre" data-ng-maxlength="100" data-ng-trim="false" data-ng-keydown="enterBuscar($event)">
+					</div>
+				</div>
+				<div class="flow-actions">
+					<button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="!(frmFiltro.cedula.$valid||(modeloCiudadano.nombre.length>0)||(modeloCiudadano.primerApellido.length>0)||(modeloCiudadano.segundoApellido.length>0))" data-ng-click="clicBuscar(frmFiltro)">Buscar</button>
+				</div>
+			</div>
+		</div>
+		<div class="bd" data-ng-show="mostrarPreloadBuscar">
+			<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+		</div>
+		<h3 data-ng-show="mostrarResultados">Resultados de la búsqueda:</h3>
+		<div class="mod" data-ng-show="mostrarResultados">
+			<div class="hd">
+				<h3><i class="icon-list"></i>Lista de solicitudes</h3>
+			</div>
+			<div class="bd">
+				<div class="mod mod-lined">
+					<div class="bd">
+						<div class="filters-mod">
+							<div class="pull-left">
+					                <select class="span1" data-ng-model="maximoPorPagina" data-ng-change="clicBuscar()">
+					                    <option value="5">5</option>
+					                    <option value="10">10</option>
+					                    <option value="15">15</option>
+					                    <option value="20">20</option>
+					                </select>
+					                <span>entradas</span>
+					        </div>
+						</div>
+						<!-- table-zebra -->
+						<table class="table-zebra table-hover">
+							<thead>
+								<tr>
+									<th>N°</th>
+									<th>N° de solicitud</th>
+									<th>N° de cédula</th>
+									<th>Primer apellido</th>
+									<th>Segundo apellido</th>
+									<th>Nombre</th>
+									<th>Fecha de recibido</th>
+									<th>Hora de recibido</th>
+									<th>Estado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="l in listaSolicitudes" data-ng-click="clicObtenerDetalle(l,$index)" data-ng-class="{'seleccion-fila': indice==$index}">
+									<td class="mano">{{$index+1}}</td>
+									<td class="mano">{{l.numeroSolicitud}}</td>
+									<td class="mano">{{l.numeroCedula}}</td>
+									<td class="mano">{{l.primerApellido}}</td>
+									<td class="mano">{{l.segundoApellido}}</td>
+									<td class="mano">{{l.nombre}}</td>
+									<td class="mano">{{l.frontfechaHora.fecha}}</td>
+									<td class="mano">{{l.frontfechaHora.hora}}</td>
+									<td class="mano">{{l.estadoSolicitud}}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+						<!-- /table-zebra -->
+						<pagination 
+							on-select-page="obtenerRegistros(page)" 
+							total-registros="totalRegistros" 
+							seleccion-mostrar="maximoPorPagina"
+							num-pages="nroPaginas"
+							current-page="paginaActual"
+				            max-size="nroPaginasVisibles" 
+							boundary-links="true" 
+				            class="pagination-small" previous-text="&lsaquo;"
+				            next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+						</pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bd" data-ng-show="mostrarPreloadDatos">
+			<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+		</div>
+		<div class="mod" data-ng-show="mostrarDatos">
+			<div class="hd">
+				<h3><i class="icon-list"></i>Histórico de solicitudes</h3>
+				<div class="actions-mod">
+					<button class="btn-link"><i class="icon-scytl-export"></i>Exportar</button>
+					<button class="btn-link"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+			</div>
+			<div class="bd">
+				<div class="mod mod-lined">
+					<div class="bd">
+						<div class="filters-mod">
+							<div class="pull-left">
+								<select class="span1" data-ng-model="maximoPorPagina2" data-ng-change="clicBuscar2()">
+									<option value="5">5</option>
+					                <option value="10">10</option>
+					                <option value="15">15</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+						</div>
+						<!-- table-zebra -->
+						<table class="table-zebra table-hover">
+							<thead>
+								<tr  >
+									<th>N°</th>
+									<th>Estado</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Código de Operador</th>
+									<th>Nombre del Operador</th>
+									<th>Comentario</th>
+									<th>N° de Estación</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-repeat="l in listaDetalleSolicitudes">
+									<td>{{$index+1}}</td>
+									<td>{{l.estadoSolicitud}}</td>
+									<td>{{l.fechaSolicitud}}</td>
+									<td>{{l.horaSolicitud}}</td>
+									<td>{{l.codigoOperador}}</td>
+									<td>{{l.nombreOperador}}</td>
+									<td>{{l.comentario}}</td>
+									<td>{{l.numeroEstacion}}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+						<!-- /table-zebra -->
+						<pagination 
+							on-select-page="obtenerRegistros2(page2)" 
+							total-registros="totalRegistros2" 
+							seleccion-mostrar="maximoPorPagina2"
+							num-pages="nroPaginas2"
+							current-page="paginaActual2"
+				            max-size="nroPaginasVisibles2" 
+							boundary-links="true" 
+				            class="pagination-small" previous-text="&lsaquo;"
+				            next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+						</pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>

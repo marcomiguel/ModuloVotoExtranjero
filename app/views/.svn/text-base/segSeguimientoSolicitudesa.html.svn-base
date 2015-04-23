@@ -1,0 +1,208 @@
+
+						<!-- Titulo -->
+						<h2>Seguimiento de solicitudes</h2>
+						<form class="form-horizontal" name="frmFiltro" novalidate data-ng-init="init()">
+							<div class="mod">
+								<div class="hd">
+									<h3>Filtrar por:</h3>
+                                   
+								</div>
+								<div class="bd">
+									<div class="control-group big  data-ng-mang-class: {error:frmFiltro.numeroCedula.$error.maxlength}">
+										<label class="control-label">Nº de cédula:</label>
+										<div class="controls">
+											<input type="text" class="input-small" name="numeroCedula" data-ui-cedula data-ng-model="modeloCiudadano.numeroCedula" data-ng-maxlength="9">
+											<div class="help-block" data-ng-show="frmFiltro.numeroCedula.$error..maxlength"><i class="icon-scytl-error"></i>Cédula inválida</div>
+											
+										</div>
+									</div>
+									<div class="control-group big  data-ng-mang-class: {error:frmFiltro.numeroSolicitud.$error.maxlength}">
+										<label class="control-label">Nº de Solicitud:</label>
+										<div class="controls">
+											<input type="text" class="input-small" name="numeroSolicitud" data-ng-model="modeloCiudadano.numeroSolicitud" data-ng-maxlength="12" >
+											<div class="help-block" data-ng-show="frmFiltro.numeroSolicitud.$error.maxlength"><i class="icon-scytl-error"></i>Solicitud inválida</div>
+											
+										</div>
+									</div>
+									<div class="control-group big ng-class: {error:frmFiltro.nombreCiudadano.$error.maxlength}">
+										<label class="control-label two-line">Nombre: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+											<input type="text" class="" name="nombreCiudadano" data-ng-model="modeloCiudadano.nombre" data-ng-maxlength="100" data-ng-trim="false">
+											<div class="help-block" data-ng-show="frmFiltro.nombreCiudadano.$error.maxlength"><i class="icon-scytl-error"></i>Formato Inválido</div>
+										</div>
+									</div>
+									<div class="control-group big ng-class: {error:frmFiltro.apellidoPaterno.$error.maxlength}">
+										<label class="control-label two-line">Primer apellido: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+											<input type="text" class="" name="apellidoPaterno" data-ng-model="modeloCiudadano.apellidoPaterno" data-ng-maxlength="100" data-ng-trim="false">
+										</div>
+									</div>
+									<div class="control-group big ng-class: {error:frmFiltro.apellidoMaterno.$error.maxlength}">
+										<label class="control-label two-line">Segundo apellido: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+											<input type="text" class="" name="apellidoMaterno" data-ng-model="modeloCiudadano.apellidoMaterno" data-ng-maxlength="100" data-ng-trim="false">
+										</div>
+									</div>
+									<div class="flow-actions">
+										<button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="!(frmFiltro.numeroCedula.$valid || (modeloCiudadano.numeroSolicitud.length>0) || (modeloCiudadano.nombre.length>0)||(modeloCiudadano.apellidoPaterno.length>0)||(modeloCiudadano.apellidoMaterno.length>0))" data-ng-click="clicBuscar(frmFiltro)">Buscar</button>
+									</div>
+								</div>
+							</div>
+							<div class="bd" data-ng-show="mostrarPreloadBuscar">
+								<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+							</div>
+							<h4 data-ng-show="mostrarResultados">Resultados de la búsqueda:</h4>
+							<div data-ui-alerta="" data-opciones="alertaListaSolicitudesVacia"></div>
+							<div class="mod" data-ng-show="mostrarResultados">
+								<div class="hd" >
+									<h3><i class="icon-list"></i>Lista de registros</h3>
+								</div>
+								<div class="bd">
+									<div class="mod mod-lined">
+										<div class="bd">
+											
+											<div class="filters-mod">
+												<div class="pull-left">
+													<select class="span1" data-ng-model="maximoPorPagina" data-ng-change="clicBuscar()">
+														<option>5</option>
+														<option>10</option>
+														<option>15</option>
+														<option>20</option>
+													</select>
+													<span>entradas</span>
+												</div>
+											</div>
+											<!-- table-zebra -->
+											<table class="table-zebra table-hover">
+												<thead>
+													<tr>
+														<th>Nro.</th>
+														<th>Nro. de solicitud</th>
+														<th>Nro. de cédula</th>
+														<th>Nombre</th>
+														<th>Primer apellido</th>
+														<th>Segundo apellido</th>
+														<th>Fecha de recibido</th>
+														<th>Hora de recibido</th>
+														<th>Estado de la gestión</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr data-ng-repeat="registro in listaSolicitudes" data-ng-click="clicObtenerDetalle($index)" data-ng-class="{'seleccion-fila': indice==$index}">
+														<td class="mano">{{$index+1}}</td>
+														<td class="mano">{{registro.numeroSolicitud}}</td>
+														<td class="mano">{{registro.numeroCedula}}</td>
+														<td class="mano">{{registro.nombre}}</td>
+														<td class="mano">{{registro.apellidoPaterno}}</td>
+														<td class="mano">{{registro.apellidoMaterno}}</td>
+														<td class="mano">{{registro.fechaHora}}</td>
+														<td class="mano">{{registro.fechaHora}}</td>
+														<td class="mano">{{registro.descripcionEstadoSICI}}</td>
+													</tr>
+													
+												</tbody>
+											</table>
+											<!-- /table-zebra -->
+											<pagination 
+												on-select-page="obtenerRegistros(page)" 
+												total-registros="totalRegistros" 
+												seleccion-mostrar="maximoPorPagina"
+												num-pages="nroPaginas"
+												current-page="paginaActual"
+												max-size="5" 
+												boundary-links="true" 
+												class="pagination-small" previous-text="&lsaquo;"
+												next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+											</pagination>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mod" data-ng-show="mostrarDatos">
+								<div class="hd">
+									<h3><i class="icon-file-alt"></i>Información</h3>
+								</div>
+								<div class="bd">
+									<div class="control-group big">
+										<label class="control-label">Número de solicitud:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="input-small" data-ng-model="modeloDetalleCiudadano.numeroSolicitud">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Número de cédula:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="input-small" data-ng-model="modeloDetalleCiudadano.cedula">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Nombre:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="" data-ng-model="modeloDetalleCiudadano.nombre">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Primer apellido:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="" data-ng-model="modeloDetalleCiudadano.primerApellido">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Segundo apellido:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="" data-ng-model="modeloDetalleCiudadano.segundoApellido">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Fecha de recibido:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="input-small" data-ng-model="modeloDetalleCiudadano.fecha">
+										</div>
+									</div>
+									<!-- se agrega hora de recibido -->
+									<div class="control-group big">
+										<label class="control-label">Hora de recibido:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="input-small" data-ng-model="modeloDetalleCiudadano.hora">
+										</div>
+									</div>
+									<div class="control-group big">
+										<label class="control-label">Estado de la gestión:</label>
+										<div class="controls">
+										<input type="text" value="" disabled="disabled" class="" data-ng-model="modeloDetalleCiudadano.idEstadoSolicitud">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+
+
+		
+		<!-- /lightbox cuando el usuario buscado no existe-->
+		<div id="advertencia" class="modal modal-40 hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<i></i>
+					</button>
+					<h3>Advertencia</h3>
+				</div>
+				<div class="modal-body fss">
+					<p>Ud. se encuentra con  impedimento debido a que no está empadronado o tiene anotaciones o restricciones en el asiento de nacimiento.<p>
+					<p>Por favor acérquese al consulado más cercano.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-blue rfloat">
+						<i class="icon-scytl-print"></i>Imprimir
+					</button>
+					<!--
+					<button class="btn-link phm">
+						<i class="icon-scytl-print"></i>Imprimir
+					</button>
+					-->
+				</div>
+		</div>
+
+     

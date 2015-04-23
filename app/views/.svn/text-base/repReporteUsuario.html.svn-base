@@ -1,0 +1,917 @@
+<h2>Reporte de usuarios</h2>
+<form class="form-horizontal" name="frmFiltro">
+	<div class="mod">
+		<div class="hd">
+			<h3>Filtros:</h3>
+		</div>
+		<div class="bd">
+            <div class="control-group big">
+                <label class="control-label">Reporte:</label>
+                <div class="controls">
+                    <select class="span5" data-ng-options="flt.descripcion for flt in listaFiltro" data-ng-change="cambiarFiltro()" data-ng-model="modeloFiltro"></select>
+                </div>
+            </div>
+			<div data-ng-if="modeloFiltro.idFiltro===1">
+                <div class="control-group big ng-class: {error:frmFiltro.cedula.$error.uicedulanozero}">
+    				<label class="control-label">Nº de cédula:</label>
+    				<div class="controls">
+    				    <input type="text" class="input-large" name="cedula" data-ui-cedula-no-zero data-ng-model="$parent.modeloReporte1.cedula">
+                        <div class="help-block" data-ng-show="frmFiltro.cedula.$error.uicedulanozero">
+                            <i class="icon-scytl-error"></i>Cédula inválida
+                        </div>
+    				</div>
+    			</div>
+                <div class="control-group big ng-class: {error:frmFiltro.nombres.$error.maxlength}">
+    				<label class="control-label">Nombres:</label>
+    				<div class="controls">
+    				    <input type="text" class="input-large" name="nombres" data-ng-model="$parent.modeloReporte1.nombres" data-ng-maxlength="100">
+                        <div class="state-required" data-ng-show="frmFiltro.nombres.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 100 caracteres</div>
+    				</div>
+    			</div>
+                <div class="control-group big ng-class: {error:frmFiltro.apellidos.$error.maxlength}">
+    				<label class="control-label">Apellidos:</label>
+    				<div class="controls">
+        				<input type="text" class="input-large" name="apellidos" data-ng-model="$parent.modeloReporte1.apellidos" data-ng-maxlength="200">
+                        <div class="state-required" data-ng-show="frmFiltro.apellidos.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 200 caracteres</div>
+    				</div>
+    			</div>
+                <div class="control-group big">
+                    <label class="control-label">Perfil:</label>
+                    <div class="controls">
+                       
+                        <select class="span5" data-ng-disabled="disabledPerfil" data-ng-options="pfl.descripcion for pfl in listaPerfil" data-ng-change="cambiarPerfil(modeloPerfil.idPerfil)" data-ng-model="$parent.modeloPerfil">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label">Permisos asociados al perfil:</label>
+                    <div class="controls">
+                        <select class="span5" data-ng-disabled="disabledPermiso" data-ng-options="per.descripcion for per in listaPermiso" data-ng-model="$parent.modeloPermiso">
+                        </select>
+
+                    </div>
+                </div>
+                <!-- <div class="control-group big">
+					<label class="control-label two-line">Fecha de activación:</label>
+					<div class="controls form-inline">
+						<div class="dinline-block mbs">
+							<label class="color-secondary">Desde: </label>
+							<div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+								<input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+								<span class="add-on"><i class="icon-calendar"></i></span> 
+							</div>
+						</div>
+						<div class="dinline-block mbs">
+							<label class="color-secondary">Hasta: </label>
+							<div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+								<input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+								<span class="add-on"><i class="icon-calendar"></i></span>
+							</div>
+						</div>
+					    <eventdates data-ed-start-model="idate" data-ed-end-model="fdate" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div> -->
+                <div class="control-group big">
+                    <label class="control-label two-line">Fecha de activación:</label>
+                    <div class="controls form-inline">
+                        <!-- <div class="dinline-block mbs">
+                            <label class="color-secondary">Desde: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span> 
+                            </div>
+                        </div>
+                        <div class="dinline-block mbs">
+                            <label class="color-secondary">Hasta: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div> -->
+                        <eventdates data-ed-start-model="$parent.modeloReporte1.fechaActivacionInicio" data-ed-end-model="$parent.modeloReporte1.fechaActivacionFin" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div>
+                <div class="control-group big">
+					<label class="control-label">Estado del usuario:</label>
+					<div class="controls">
+						<select class="span5" data-ng-disabled="disabledEstado" data-ng-options="est.descripcion for est in listaEstado" data-ng-change="cambiarEstado(modeloEstado.idEstado)" data-ng-model="$parent.modeloEstado">
+                        </select>
+					</div>       
+                </div>
+                <div class="control-group big ng-class: {error:frmFiltro.motivoUsuario.$error.maxlength}">
+					<label class="control-label">Motivo de cambio al usuario:</label>
+					<div class="controls form-inline">
+						<div class="dinline-block mbs">
+							<textarea class="span5" rows="4" name="motivoUsuario" data-ng-model="$parent.modeloReporte1.motivo" data-ng-maxlength="2000"></textarea>
+                            <div class="state-required" data-ng-show="frmFiltro.motivoUsuario.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 2000 caracteres</div>
+						</div>
+					</div>       
+                </div>
+			</div>
+			<div data-ng-if="modeloFiltro.idFiltro===2">
+                <div class="control-group big">
+                    <label class="control-label">Perfil:</label>
+                    <div class="controls">
+                        <select class="span5" data-ng-disabled="disabledPerfil" data-ng-options="pfl.descripcion for pfl in listaPerfil" data-ng-change="cambiarPerfil(modeloPerfil.idPerfil)" data-ng-model="$parent.modeloPerfil">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label">Permisos asociados:</label>
+                    <div class="controls">
+                        <select class="span5" data-ng-disabled="disabledPermiso" data-ng-options="per.descripcion for per in listaPermiso" data-ng-change="cambiarPermiso(modeloPermiso.idMenu)" data-ng-model="$parent.modeloPermiso">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label two-line">Fecha de creación:</label>
+                    <div class="controls form-inline">
+                        <!-- <div class="dinline-block mbs">
+                            <label class="color-secondary">Desde: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span> 
+                            </div>
+                        </div>
+                        <div class="dinline-block mbs">
+                            <label class="color-secondary">Hasta: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span> 
+                                
+                            </div>
+                        </div> -->
+                        <eventdates data-ed-start-model="$parent.modeloReporte2.fechaCreacionInicio" data-ed-end-model="$parent.modeloReporte2.fechaCreacionFin" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label two-line">Fecha de modificación:</label>
+                    <div class="controls form-inline">
+                        <!-- <div class="dinline-block mbs">
+                            <label class="color-secondary">Desde: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span> 
+                            </div>
+                        </div>
+                        <div class="dinline-block mbs">
+                            <label class="color-secondary">Hasta: </label>
+                            <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                                <input class="input-small datepicker" type="text" value="dd/mm/yyyy">
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div> -->
+                        <eventdates data-ed-start-model="$parent.modeloReporte2.fechaModificacionInicio" data-ed-end-model="$parent.modeloReporte2.fechaModificacionFin" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div>
+                <div class="control-group big ng-class: {error:frmFiltro.descripcion.$error.maxlength}">
+                    <label class="control-label">Descripción:</label>
+                    <div class="controls form-inline">
+                        <div class="dinline-block mbs">
+                            <textarea class="span5" rows="4" name="descripcion" data-ng-model="modeloReporte2.descripcion" data-ng-maxlength="1000"></textarea>
+                            <div class="state-required" data-ng-show="frmFiltro.descripcion.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 1000 caracteres</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group big ng-class: {error:frmFiltro.motivoCambio.$error.maxlength}">
+                    <label class="control-label">Motivo de cambio:</label>
+                    <div class="controls form-inline">
+                        <div class="dinline-block mbs">
+                            <textarea class="span5" rows="4" name="motivoCambio" data-ng-model="modeloReporte2.motivo" data-ng-maxlength="2000"></textarea>
+                            <div class="state-required" data-ng-show="frmFiltro.motivoCambio.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 2000 caracteres</div>
+                        </div>
+                    </div> 
+                </div>
+			</div>
+			<div data-ng-if="modeloFiltro.idFiltro===3">
+				<div class="control-group mtl">
+					<label class="radio inline">
+    					<input type="radio" data-ng-change="cambiarAccion3(modeloReporte3.accion)" data-ng-model="modeloReporte3.accion" value="U">
+    					Datos de usuario
+					</label>
+					<label class="radio inline">
+					   <input type="radio" data-ng-change="cambiarAccion3(modeloReporte3.accion)" data-ng-model="modeloReporte3.accion" value="P">
+					   Perfiles
+					</label>
+				</div>
+				<div class="control-group mtl">
+					<!-- <div class="dinline fss mrl">Desde</div>
+					<div data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date ">
+						<input type="text" value="dd/mm/yyyy" class="input-small datepicker">
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+					<div class="dinline fss mll mrl">Hasta</div>
+                    <div data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date">
+						<input type="text" value="dd/mm/yyyy" class="input-small datepicker">
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div> -->
+                    <div class="form-inline">
+                        <eventdates data-ed-start-model="$parent.modeloReporte3.fechaInicio" data-ed-end-model="$parent.modeloReporte3.fechaFin" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div>
+			</div>
+			<div data-ng-if="modeloFiltro.idFiltro===4">
+				<div class="control-group mtl">
+					<label class="radio inline">
+					   <input type="radio" data-ng-change="cambiarAccion4(modeloReporte4.accion)" data-ng-model="modeloReporte4.accion" value="F">
+					   Rango de fechas
+					</label>
+					<label class="radio inline">
+					   <input type="radio" data-ng-change="cambiarAccion4(modeloReporte4.accion)" data-ng-model="modeloReporte4.accion" value="E">
+					   Según estado
+					</label>
+				</div>
+				<div class="control-group mtl">
+					<!-- <div class="dinline fss mrl">Desde</div>
+					<div data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date ">
+						<input type="text" value="dd/mm/yyyy" class="input-small datepicker">
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+					<div class="dinline fss mll mrl">Desde</div><div data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date">
+						<input type="text" value="dd/mm/yyyy" class="input-small datepicker">
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div> -->
+				    <div class="form-inline" data-ng-if="modeloReporte4.accion==='F'">
+                        <!-- <eventdates data-ed-start-model="idate" data-ed-end-model="fdate" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab" data-ed-current-date="true">
+                        </eventdates> -->
+                        <eventdates data-ed-start-model="$parent.modeloReporte4.fechaInicio" data-ed-end-model="$parent.modeloReporte4.fechaFin" data-ed-required="false" data-ed-validate="isValid" data-ed-start-label="Desde:" data-ed-end-label="Hasta:" data-ed-reset="resetearFrmHab">
+                        </eventdates>
+                    </div>
+                </div>
+				<div id="estado"><!-- Aqui va el contenido de Estado --></div>
+			</div>
+			<div data-ng-if="modeloFiltro.idFiltro===5">
+                <div class="control-group big ng-class: {error:frmFiltro.cedula.$error.uicedulanozero}">
+                    <label class="control-label">Nº de cédula:</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" name="cedula" data-ui-cedula-no-zero data-ng-model="modeloReporte5.cedula">
+                        <div class="help-block" data-ng-show="frmFiltro.cedula.$error.uicedulanozero">
+                            <i class="icon-scytl-error"></i>Cédula inválida
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group big ng-class: {error:frmFiltro.nombres.$error.maxlength}">
+                    <label class="control-label">Nombres:</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" name="nombres" data-ng-model="modeloReporte5.nombres" data-ng-maxlength="100">
+                        <div class="state-required" data-ng-show="frmFiltro.nombres.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 100 caracteres</div>
+                    </div>
+                </div>
+                <div class="control-group big ng-class: {error:frmFiltro.apellidos.$error.maxlength}">
+                    <label class="control-label">Apellidos:</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" name="apellidos" data-ng-model="modeloReporte5.apellidos" data-ng-maxlength="200">
+                        <div class="state-required" data-ng-show="frmFiltro.apellidos.$error.maxlength"><i class="icon-scytl-error"></i>Ingrese como máximo 200 caracteres</div>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label">Perfiles que tiene:</label>
+                    <div class="controls">
+
+                        <select class="span5" data-ng-disabled="disabledPerfil" data-ng-options="pfl.descripcion for pfl in listaPerfil" data-ng-change="cambiarPerfil(modeloReporte5.modeloPerfil.idPerfil)" data-ng-model="$parent.modeloReporte5.modeloPerfil">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label">Permisos asociados al perfil:</label>
+                    <div class="controls">
+                        <select class="span5" data-ng-disabled="disabledPermiso" data-ng-options="per.descripcion for per in listaPermiso" data-ng-change="cambiarPermiso(modeloReporte5.modeloPermiso.idMenu)" data-ng-model="$parent.modeloReporte5.modeloPermiso">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group big">
+                    <label class="control-label">Estados que ha tenido un usuario:</label>
+                    <div class="controls">
+                        <select class="span5" data-ng-disabled="disabledEstado" data-ng-options="est.descripcion for est in listaEstado" data-ng-change="cambiarEstado(modeloReporte5.modeloEstado.idEstado)" data-ng-model="$parent.modeloReporte5.modeloEstado">
+                        </select>
+                    </div>
+                </div>
+			</div>
+            <!-- <pre>{{frmFiltro.$error}}</pre> -->
+			<div class="flow-actions" data-ng-if="modeloFiltro.idFiltro!==-1">
+				<button class="btn btn-blue" type="button" data-ng-disabled="frmFiltro.$invalid" data-ng-click="clicGenerar(modeloFiltro)">Generar reporte</button>
+			</div>
+		</div>
+	</div>
+    <div class="bd" data-ng-show="mostrarPreloadGenerar">
+        <div class="msj-preload msj-preload-20">
+            <i class="icon-preload"></i>{{mensajes.SYS001}}
+        </div>
+    </div>
+    <div data-ui-alerta="" data-opciones="alertaReporteVacio"></div>
+    <!-- <div class="mod" data-ng-if="mostrarResultados1"> -->
+    <div class="mod" data-ng-if="listaReporte1.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Datos de usuario</h3>
+            <div class="actions-mod">
+                <export position="reportes.exportar.reporte1.posicion" opciones="reportes.exportar.reporte1.opciones" is-plantilla="false" url="'RSRepObtenerDatosUsuario'" parametros="parametrosExport"></export>
+                <button class="btn-link" data-ng-click="imprimirReporte1()"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <div class="bd">
+			<div class="mod mod-clean">
+                <!-- <div data-ui-alerta="" data-opciones="alertaReporteVacio"></div> -->
+                <!-- <pre>{{listaReporte1}}</pre>
+                <pre>{{arbolReporte}}</pre>
+				<pre>{{listaReporte1Test}}</pre> -->
+                <div class="mbm row-fluid" data-ng-class="{'table_header_fixed':listaReporte1.length > 10}" data-ng-show="listaReporte1.length > 0">
+					<div data-ng-class="{'table_header_top':listaReporte1.length > 10}" class="mb0" > 
+						<table class="table-zebra" data-ng-show="listaReporte1.length>0" data-ng-class="{'table_header_fixed': listaReporte1.length > 10}" >
+							<thead>
+    							<tr>
+    								<th class="ctxt vmiddle" width="5%">N°</th>
+    								<th class="ctxt vmiddle" width="10%">N° de cédula</th>
+    								<th class="ctxt vmiddle" width="20%">Nombres y apellidos</th>
+    								<th class="ctxt vmiddle" width="15%">Perfil</th>
+    								<th class="ctxt vmiddle" width="15%">Permisos asociados al perfil</th>
+    								<th class="ctxt vmiddle" width="10%">Fecha de activación</th>
+    								<th class="ctxt vmiddle" width="10%">Estado del usuario</th>
+    								<th class="ctxt vmiddle" width="10%">Motivo de cambio al usuario</th>
+    							</tr>
+    						</thead>
+						<!--</table>
+					</div>
+					<div data-ng-class="{'table-y-300': listaReporte1.length > 10}">
+						<table class="table table-zebra table-hover">-->
+							<tbody>
+                                 <tr data-ng-repeat="lr in listaReporte1">
+                                    <td class="ctxt vmiddle" width="5%" rowspan="{{listaTabla[$index].combinado}}" data-ng-show="{{listaTabla[$index].oculto}}">{{lr.numeracion}}</td>
+                                    <td class="ctxt vmiddle" width="10%" rowspan="{{listaTabla[$index].combinado}}" data-ng-show="{{listaTabla[$index].oculto}}">{{lr.numeroCedula}}</td>
+                                    <td class="ctxt vmiddle" width="20%" rowspan="{{listaTablaNombres[$index].combinado}}" data-ng-show="{{listaTablaNombres[$index].oculto}}">{{lr.nombreApellido}}</td>
+                                    <td class="ctxt vmiddle" width="15%"> {{lr.perfil}}</td>
+                                    <td class="ctxt vmiddle" width="15%">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="10%" rowspan="{{listaTablaFecha[$index].combinado}}" data-ng-show="{{listaTablaFecha[$index].oculto}}">{{lr.fechaActivacion}}</td>
+                                    <td class="ctxt vmiddle" width="10%" rowspan="{{listaTablaEstado[$index].combinado}}" data-ng-show="{{listaTablaEstado[$index].oculto}}">{{lr.estadoUsuario}}</td>
+                                    <td class="ctxt vmiddle" width="10%">
+                                        <ul>
+                                            <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                                {{l.motivoModificacion}}
+                                            </li>
+                                        </ul>    
+                                    </td>
+                                </tr> 
+                               <!-- <tr data-ng-repeat="item in listaReporte1" data-ng-switch on="item.opcion">
+                                    <td class="ctxt vmiddle" width="5%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">{{item.indice}}</td>
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.numeroCedula}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.nombreApellido}}    
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c">
+                                        {{item.perfil[item.indice-1].perfil}}   
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                        {{item.perfil[item.indice-1].perfil}}    
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c">
+                                        <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>  
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                        <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.fechaActivacion}}     
+                                    </td>
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.estadoUsuario}}   
+                                    </td>
+                                    <td class="ltxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        <ul style="list-style-type:none;">
+                                            <li data-ng-repeat="i in item.motivoCambioUsuario">
+                                                - {{i.motivoModificacion}}
+                                            </li>
+                                        </ul>    
+                                    </td>
+                                </tr>-->
+						    </tbody>
+						</table>
+                        <!-- <table class="table table-zebra table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="ctxt vmiddle" width="5%">N°</th>
+                                    <th class="ctxt vmiddle" width="10%">N° de cédula</th>
+                                    <th class="ctxt vmiddle" width="20%">Nombres y apellidos</th>
+                                    <th class="ctxt vmiddle" width="15%">Perfil</th>
+                                    <th class="ctxt vmiddle" width="15%">Permisos asociados al perfil</th>
+                                    <th class="ctxt vmiddle" width="10%">Fecha de activación</th>
+                                    <th class="ctxt vmiddle" width="10%">Estado del usuario</th>
+                                    <th class="ctxt vmiddle" width="15%">Motivo de cambio al usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="5%" rowspan="2">X</td>
+                                    <td width="10%" rowspan="2">XXXXX</td>
+                                    <td width="20%" rowspan="2">XXXXXX</td>
+                                    <td width="15%">AAA</td>
+                                    <td width="15%">BBB</td>
+                                    <td width="10%" rowspan="2">XXXXXX</td>
+                                    <td width="10%" rowspan="2">XXXXXX</td>
+                                    <td width="15%" rowspan="2">XXXXXX</td>
+                                </tr>
+                                <tr>
+                                    <td>CCC</td>
+                                    <td>DDD</td>
+                                </tr>
+                                <tr>
+                                    <td>X</td>
+                                    <td>XXXXX</td>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte2.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Datos de perfil</h3>
+            <div class="actions-mod">
+            	<!-- <export position="reportes.exportar.reporte2.posicion" opciones="reportes.exportar.reporte2.opciones" callback="exportarReporte2"></export> -->
+                <export position="reportes.exportar.reporte2.posicion" opciones="reportes.exportar.reporte2.opciones" is-plantilla="false" url="'RSRepObtenerDatosPerfil'" parametros="parametrosExport"></export>
+                <button class="btn-link" data-ng-click="imprimirReporte2()"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <div class="bd">
+			<div class="mod mod-clean">
+                <!-- <div data-ui-alerta="" data-opciones="alertaReporteVacio"></div> -->
+				<!-- <pre>{{listaReporte2}}</pre>
+                <pre>{{arbolReporte2}}</pre>
+                <pre>{{listaReporte2Test}}</pre> -->
+                <div class="mbm row-fluid" data-ng-class="{'table_header_fixed':listaReporte2.length > 10}" data-ng-show="listaReporte2.length > 0">
+					<div data-ng-class="{'table_header_top':listaReporte2.length > 10}" class="mb0" > 
+						<table class="table-zebra" data-ng-show="listaReporte2.length>0" data-ng-class="{'table_header_fixed': listaReporte2.length > 10}" >
+							<thead>
+								<tr>
+									<th class="ctxt vmiddle" width="5%">N°</th>
+									<th class="ctxt vmiddle" width="15%">Nombre del perfil</th>
+									<th class="ctxt vmiddle" width="15%">Permisos asociados</th>
+                                    <th class="ctxt vmiddle" width="20%">Descripción</th>
+									<th class="ctxt vmiddle" width="15%">Fecha de creación</th>
+									<th class="ctxt vmiddle" width="15%">Fecha de modificación</th>
+									<th class="ctxt vmiddle" width="15%">Motivo de cambio al perfil</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div data-ng-class="{'table-y-300': listaReporte2.length > 10}">
+						<table class="table-zebra table-hover">
+							<tbody>
+    							<!-- <tr data-ng-repeat="lr in listaReporte2">
+    								<td class="ctxt vmiddle" width="5%">{{$index+1}}</td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.nombrePerfil}}</td>
+    								<td class="ctxt vmiddle" width="15%">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>                        
+                                    </td>
+    								<td class="ctxt vmiddle" width="20%">{{lr.descripcionPerfil}}</td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.fechaCreacion}}</td>
+    								<td class="ctxt vmiddle" width="15%">
+                                        <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                            {{lr.fechaModificacion}}
+                                        </li>
+                                    </td>
+    								<td class="ctxt vmiddle" width="15%">
+                                        <ul>
+                                            <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                                {{l.motivoModificacion}}
+                                            </li>
+                                        </ul>                   
+                                    </td>
+    							</tr> -->
+<!--                                <tr data-ng-repeat="item in listaReporte2" data-ng-switch on="item.opcion">
+                                    <td class="ctxt vmiddle" width="5%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">{{item.indice}}</td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.nombrePerfil}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        <span data-ng-repeat="i in item.permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.descripcionPerfil}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.fechaCreacion}}     
+                                    </td>
+                                   
+                                    <td class="ctxt vmiddle" width="10%">
+                                                 &nbsp;    
+                                     </td>
+                                     <td class="ctxt vmiddle" width="15%">
+                                                 &nbsp;
+                                    </td>
+                                </tr>-->
+                                 <tr data-ng-repeat="lr in listaReporte2">
+                                    <td class="ctxt vmiddle" width="5%" rowspan="{{listaTablaPerfil[$index].combinado}}" data-ng-show="{{listaTablaPerfil[$index].oculto}}">{{lr.numeracion}}</td>
+                                    <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaPerfil[$index].combinado}}" data-ng-show="{{listaTablaPerfil[$index].oculto}}">{{lr.nombrePerfil}}</td>
+                                     <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaPermisos[$index].combinado}}" data-ng-show="{{listaTablaPermisos[$index].oculto}}">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" rowspan="{{listaTablaDescripcion[$index].combinado}}" data-ng-show="{{listaTablaDescripcion[$index].oculto}}">{{lr.descripcionPerfil}}</td>
+                                    <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaFechaCreacion[$index].combinado}}" data-ng-show="{{listaTablaFechaCreacion[$index].oculto}}">{{lr.fechaCreacion}}</td>
+                                   <td class="ctxt vmiddle" width="15%"> {{lr.fechaModificacionPerfil}}</td>
+                                    
+                                      <td class="ctxt vmiddle" width="15%">
+                                        <ul>
+                                            <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                                {{l.motivoModificacion}}
+                                            </li>
+                                        </ul>    
+                                    </td>
+                                </tr> 
+    						</tbody>
+						</table>
+                        <!-- <table class="table-zebra table-hover">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nombre del perfil</th>
+                                    <th>Permisos asociados</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha de creación</th>
+                                    <th>Fecha de modificación</th>
+                                    <th>Motivo de cambio al perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="3">X</td>
+                                    <td rowspan="3">XXXXX</td>
+                                    <td rowspan="3">XXXXXX</td>
+                                    <td rowspan="3">XXXXXX</td>
+                                    <td rowspan="3">XXXXXX</td>
+                                </tr>
+                                <tr>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                </tr><tr>
+                                    <td>XXXXXX</td>
+                                    <td>XXXXXX</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte3a.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Entre fechas de acciones - Datos de usuario</h3>
+            <div class="actions-mod">
+            	<export position="reportes.exportar.reporte3a.posicion" opciones="reportes.exportar.reporte3a.opciones" is-plantilla="false" url="'RSRepObtenerDatosUsuarioEntreFechaAcciones'" parametros="parametrosExport"></export>
+            	<button class="btn-link" data-ng-click="imprimirReporte3('a')"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <div class="bd">
+			<div class="mod mod-clean">
+                <!-- <div data-ui-alerta="" data-opciones="alertaReporteVacio"></div> -->
+				<div class="mbm row-fluid" data-ng-class="{'table_header_fixed':listaReporte3a.length > 10}" data-ng-show="listaReporte3a.length > 0">
+					<div data-ng-class="{'table_header_top':listaReporte3a.length > 10}" class="mb0" > 
+						<table class="table-zebra" data-ng-show="listaReporte3a.length>0" data-ng-class="{'table_header_fixed': listaReporte3a.length > 10}" >
+							<thead>
+								<tr>
+                                    <th class="ctxt vmiddle" width="5%">N°</th>
+                                    <th class="ctxt vmiddle" width="10%">N° de cédula</th>
+                                    <th class="ctxt vmiddle" width="20%">Nombres y apellidos</th>
+                                    <th class="ctxt vmiddle" width="15%">Perfil</th>
+                                    <th class="ctxt vmiddle" width="15%">Permisos asociados al perfil</th>
+                                    <th class="ctxt vmiddle" width="10%">Fecha de activación</th>
+                                    <th class="ctxt vmiddle" width="10%">Estado del usuario</th>
+                                    <th class="ctxt vmiddle" width="10%">Motivo de cambio al usuario</th>
+								</tr>
+							</thead>
+						<!--</table>
+					</div>
+					<div data-ng-class="{'table-y-300': listaReporte3a.length > 10}">
+						<table class="table table-zebra table-hover">-->
+							<tbody>
+                                <!-- <tr data-ng-repeat="lr in listaReporte3a">
+                                    <td class="ctxt vmiddle" width="5%">{{$index+1}}</td>
+                                    <td class="ctxt vmiddle" width="10%">{{lr.numeroCedula}}</td>
+                                    <td class="ctxt vmiddle" width="15%">{{lr.nombreApellido}}</td>
+                                    <td class="ctxt vmiddle" width="15%">{{lr.perfil}}</td>
+                                    <td class="ctxt vmiddle" width="15%">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%">{{lr.fechaActivacion}}</td>
+                                    <td class="ctxt vmiddle" width="15%">{{lr.estadoUsuario}}</td>
+                                    <td class="ctxt vmiddle" width="15%">
+                                        <ul>
+                                            <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                                {{l.motivoModificacion}}
+                                            </li>
+                                        </ul>                   
+                                    </td>
+                                </tr> -->
+                                <tr data-ng-repeat="item in listaReporte3a" data-ng-switch on="item.opcion">
+                                    <td class="ctxt vmiddle" width="5%" data-ng-switch-when="c">{{item.indiceU}}</td>
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" >
+                                        {{item.numeroCedula}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c">
+                                        {{item.nombreApellido}}    
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c">
+                                        {{item.descripcionPerfil}}   
+                                    </td>                                 
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c"> 
+                                        <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">                                           
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>  
+                                    </td>                                   
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c">
+                                        {{item.fechaActivacion}}     
+                                    </td>
+                                    <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c">
+                                        {{item.estadoUsuario}}   
+                                    </td>
+                                    <td class="ltxt vmiddle" width="10%" data-ng-switch-when="c">
+                                        
+                                        <ul style="list-style-type:none;">
+                                            <li data-ng-repeat="i in item.motivoCambioUsuario">
+                                                
+                                                - {{i.motivoModificacion}}
+                                            </li>
+                                        </ul>    
+                                    </td>
+                                </tr>
+    						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte3b.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Entre fechas de acciones - Datos de perfil</h3>
+            <div class="actions-mod">
+            	<export position="reportes.exportar.reporte3b.posicion" opciones="reportes.exportar.reporte3b.opciones" is-plantilla="false" url="'RSRepObtenerDatosPerfilEntreFechaAcciones'" parametros="parametrosExport"></export>
+            	<button class="btn-link" data-ng-click="imprimirReporte3('b')"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <!-- <pre>{{listaReporte3b}}</pre>
+        <pre>{{arbolReporte3b}}</pre> -->
+        <div class="bd">
+			<div class="mod mod-clean">
+                <!-- <div data-ui-alerta="" data-opciones="alertaReporteVacio"></div> -->
+				<div class="mbm row-fluid" data-ng-class="{'table_header_fixed':listaReporte3b.length > 10}" data-ng-show="listaReporte3b.length > 0">
+					<div data-ng-class="{'table_header_top':listaReporte3b.length > 10}" class="mb0" > 
+						<table class="table-zebra" data-ng-show="listaReporte3b.length>0" data-ng-class="{'table_header_fixed': listaReporte3b.length > 10}" >
+							<thead>
+    							<tr>
+                                    <th class="ctxt vmiddle" width="5%">N°</th>
+                                    <th class="ctxt vmiddle" width="15%">Nombre del perfil</th>
+                                    <th class="ctxt vmiddle" width="15%">Permisos asociados</th>
+                                    <th class="ctxt vmiddle" width="20%">Descripción</th>
+                                    <th class="ctxt vmiddle" width="15%">Fecha de creación</th>
+                                    <th class="ctxt vmiddle" width="15%">Fecha de modificación</th>
+                                    <th class="ctxt vmiddle" width="15%">Motivo de cambio al perfil</th>
+    							</tr>
+    						</thead>
+						</table>
+					</div>
+					<div data-ng-class="{'table-y-300': listaReporte3b.length > 10}">
+						<table class="table-zebra table-hover">
+							<tbody>
+    							<!-- <tr data-ng-repeat="lr in listaReporte3b">
+    								<td class="ctxt vmiddle" width="10%">{{$index+1}}</td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.nombrePerfil}}</td>
+    								<td class="ctxt vmiddle" width="15%">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>                        
+                                    </td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.descripcionPerfil}}</td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.fechaCreacion}}</td>
+    								<td class="ctxt vmiddle" width="15%">{{lr.fechaModificacion}}</td>
+    								<td class="ctxt vmiddle" width="15%">
+                                        <ul>
+                                            <li data-ng-repeat="l in lr.motivoCambioUsuario">
+                                                {{l.motivoModificacion}}
+                                            </li>
+                                        </ul>                             
+                                    </td>
+    							</tr> -->
+                                <tr data-ng-repeat="item in listaReporte3b" data-ng-switch on="item.opcion">
+                                    <td class="ctxt vmiddle" width="5%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">{{item.indice}}</td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.nombrePerfil}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        <span data-ng-repeat="i in item.permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.descripcionPerfil}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.fechaCreacion}}     
+                                    </td>
+                                    <!-- <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                        {{formatearFecha(item.motivoCambioUsuario.fechaModificacion)}}     
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                        {{item.motivoCambioUsuario.motivoModificacion}}     
+                                    </td> -->
+                                    <td class="ctxt vmiddle" width="15%" >
+                                            
+                                    </td>
+                                    <td class="ctxt vmiddle" width="15%">
+                                           
+                                    </td>
+                                </tr>
+    						</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte4a.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Estadísticas de las acciones - Rango de fechas</h3>
+            <div class="actions-mod">
+            	<export position="reportes.exportar.reporte4a.posicion" opciones="reportes.exportar.reporte4a.opciones" is-plantilla="false" url="'RSRepObtenerEstadisticaEntreAccionesEstado'" parametros="parametrosExport"></export>
+               <button class="btn-link" data-ng-click="imprimirReporte4a()"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <div class="bd">
+        	<div class="control-group big">
+				<label class="control-label two-line">Cantidad de usuarios que se crearon:</label>
+				<div class="controls">
+				    <input type="text" class="" data-ng-disabled="true" data-ng-model="modeloReporte4.cantidadCreados">
+				</div>
+			</div>
+        	<div class="control-group big">
+				<label class="control-label two-line">Cantidad de usuarios que se modificaron:</label>
+				<div class="controls">
+				<input type="text" class="" data-ng-disabled="true" data-ng-model="modeloReporte4.cantidadModificados">
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte4b.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Estadísticas de las acciones - Segun estado</h3>
+            <div class="actions-mod">
+            	<export position="reportes.exportar.reporte4a.posicion" opciones="reportes.exportar.reporte4a.opciones" is-plantilla="false" url="'RSRepObtenerCantidadUsuarioPorEstado'" parametros="parametrosExport"></export>
+                <button class="btn-link" data-ng-click="imprimirReporte4b()"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <div class="bd">
+        	<div class="control-group big">
+				<label class="control-label two-line">Habilitado:</label>
+				<div class="controls">
+				    <input type="text" class="" data-ng-disabled="true" data-ng-model="modeloReporte4.cantidadHabilitados">
+				</div>
+			</div>
+        	<div class="control-group big">
+				<label class="control-label two-line">Deshabilitado:</label>
+				<div class="controls">
+				    <input type="text" class="" data-ng-disabled="true" data-ng-model="modeloReporte4.cantidadDeshabilitados">
+				</div>
+			</div>
+        	<div class="control-group big">
+				<label class="control-label two-line">Deshabilitado permanentemente:</label>
+				<div class="controls">
+				    <input type="text" class="" data-ng-disabled="true" data-ng-model="modeloReporte4.cantidadDeshabilitadosTemporalmente">
+				</div>
+			</div>
+        </div>
+    </div>
+    <div class="mod" data-ng-if="listaReporte5.length>0">
+        <div class="hd">
+            <h3><i class="icon-list"></i>Reporte: Histórico de un usuario</h3>
+            <div class="actions-mod">
+            	<export position="reportes.exportar.reporte5.posicion" opciones="reportes.exportar.reporte5.opciones" is-plantilla="false" url="'RSRepObtenerHistoricoUsuario'" parametros="parametrosExport"></export>
+                <button class="btn-link" data-ng-click="imprimirReporte5()"><i class="icon-scytl-print" ></i>Imprimir</button>
+        	</div>
+        </div>
+        <!-- <pre>{{listaReporte5}}</pre>
+        <pre>{{arbolReporte5}}</pre>
+        <pre>{{listaReporte5Test}}</pre> -->
+        <div class="bd">
+            <!-- Lista -->
+			<div class="mod mod-clean">
+				<div class="mbm row-fluid" data-ng-class="{'table_header_fixed':listaReporte5.length > 10}" data-ng-show="listaReporte5.length > 0">
+                    <div data-ng-class="{'table_header_top':listaReporte5.length > 10}" class="mb0" > 
+						<table class="table-zebra" data-ng-show="listaReporte5.length>0" data-ng-class="{'table_header_fixed': listaReporte5.length > 10}" >
+							<thead>
+								<tr>
+									<th class="ctxt vmiddle" width="5%">N°</th>
+									<th class="ctxt vmiddle" width="15%">N° de cédula</th>
+									<th class="ctxt vmiddle" width="20%">Nombre y apellidos</th>
+									<th class="ctxt vmiddle" width="20%">Perfiles que tiene</th>
+									<th class="ctxt vmiddle" width="20%">Permisos asociados al perfil</th>
+									<th class="ctxt vmiddle" width="20%">Estados que ha tenido un usuario</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+                    <div data-ng-class="{'table-y-300': listaReporte5.length > 10}">
+						<table class="table table-zebra table-hover">
+							<tbody>
+								<!-- <tr data-ng-repeat="lr in listaReporte5">
+									<td class="ctxt vmiddle" width="5%">{{$index+1}}</td>
+									<td class="ctxt vmiddle" width="15%">{{lr.numeroCedula}}</td>
+									<td class="ctxt vmiddle" width="20%">{{lr.nombreApellido}}</td>
+									<td class="ctxt vmiddle" width="20%">{{lr.perfil}}</td>
+									<td class="ctxt vmiddle" width="20%">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>                           
+                                    </td>
+									<td class="ctxt vmiddle" width="20%">{{lr.estadoUsuario}}</td>
+								</tr> -->
+                               <!-- <tr data-ng-repeat="item in listaReporte5" data-ng-switch on="item.opcion">
+                                    <td class="ctxt vmiddle" width="5%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">{{item.indice}}</td>
+                                    <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.numeroCedula}}
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                        {{item.nombreApellido}}    
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c">
+                                        {{item.perfil[item.indice-1].perfil}}   
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="s">
+                                        {{item.perfil[item.indice-1].perfil}}    
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="c">
+                                        <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>  
+                                    </td>
+                                    <td class="ctxt vmiddle" width="20%" data-ng-switch-when="s">
+                                        <span data-ng-repeat="i in item.perfil[item.indice-1].permisosAsociados">
+                                            {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                    <td class="ltxt vmiddle" width="20%" data-ng-switch-when="c" rowspan="{{item.rowspan}}"> 
+                                        <ul style="list-style-type:none;">
+                                            <li data-ng-repeat="i in item.estadoUsuario">
+                                                {{i.estado}} - {{formatearFecha(i.fecha)}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>-->
+                                <tr data-ng-repeat="lr in listaReporte5">
+                                    <td class="ctxt vmiddle" width="5%" rowspan="{{listaTablaCedula[$index].combinado}}" data-ng-show="{{listaTablaCedula[$index].oculto}}">{{lr.numeracion}}</td>
+                                    <td class="ctxt vmiddle" width="15%" rowspan="{{listaTablaCedula[$index].combinado}}" data-ng-show="{{listaTablaCedula[$index].oculto}}">{{lr.numeroCedula}}</td>
+                                    <td class="ctxt vmiddle" width="20%" rowspan="{{listaTablaNombre[$index].combinado}}" data-ng-show="{{listaTablaNombre[$index].oculto}}">{{lr.nombreApellido}}</td>
+                                    <td class="ctxt vmiddle" width="20%" rowspan="{{listaTablaPerfil[$index].combinado}}" data-ng-show="{{listaTablaPerfil[$index].oculto}}">{{lr.perfil}}</td>
+                                    <td class="ctxt vmiddle" width="20%" rowspan="{{listaTablaPermisos[$index].combinado}}" data-ng-show="{{listaTablaPermisos[$index].oculto}}">
+                                        <span data-ng-repeat="l in lr.permisosAsociados">
+                                            {{l.nombre}}<i data-ng-if="($index+1)!==lr.permisosAsociados.length">, </i>
+                                        </span>
+                                    </td>
+                                   <td class="ctxt vmiddle" width="20%">
+                                       <ul style="list-style-type:none;">
+                                            <li data-ng-repeat="i in item.estadoUsuario">
+                                                {{i.estado}} - {{formatearFecha(i.fecha)}}
+                                            </li>
+                                        </ul>   
+                                    </td>
+                                </tr> 
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</form>
+
+
+

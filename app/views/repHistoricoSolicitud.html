@@ -1,0 +1,219 @@
+﻿			<h2>Histórico de solicitudes</h2>
+						<form class="form-horizontal" name="frmHistorico" id="frmHistorico">
+							<div class="mod">
+								<div class="hd">
+									<h3>Filtrar por:</h3>
+								</div>
+								<div class="bd">
+									<div class="control-group big " data-ng-class="{error:frmHistorico.numeroCedula.$error.cedula}">
+                                        <label class="control-label">Nº de cédula: </label>
+                                        <div class="controls">
+
+                                            <input type="text" class="input-small" name="numeroCedula" data-ng-model="modeloCiudadano.numeroCedula" data-ui-cedula  data-ng-keydown="enterBuscar(frmHistorico,$event)"/>
+                                            <div class="help-block" data-ng-show="frmHistorico.numeroCedula.$error.cedula">
+                                                <i class="icon-scytl-error"></i>
+                                                {{mensajesApp.HEL001(9)}}
+                                            </div> 
+
+                                        </div>
+                                    </div>
+									<div class="control-group big  data-ng-class: {error:frmHistorico.numeroSolicitud.$error.pattern}">
+										<label class="control-label">Nº de Solicitud:</label>
+										<div class="controls">
+
+											<input type="text" class="input-small" name="numeroSolicitud" data-ng-model="modeloCiudadano.numeroSolicitud" data-ng-maxlength="12" data-ng-pattern="onlySolicitud" data-ng-keydown="enterBuscar(frmHistorico,$event)">
+											<div class="help-block" data-ng-show="frmHistorico.numeroSolicitud.$error.maxlength"><i class="icon-scytl-error"></i>{{mensajesApp.HEL020 }}</div>
+											<div class="help-block" data-ng-show="frmHistorico.numeroSolicitud.$error.pattern"><i class="icon-scytl-error"></i>{{mensajesApp.HEL001(12)}}</div>
+										</div>
+									</div>
+									
+									<div class="control-group big ng-class: {error:frmHistorico.apellidoPaterno.$error.pattern || frmHistorico.apellidoPaterno.$error.maxlength}">
+										<label class="control-label two-line">Primer apellido: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+
+											<input type="text" class="" name="apellidoPaterno" data-ng-model="modeloCiudadano.apellidoPaterno" data-ng-maxlength="100" data-ng-trim="false" data-ng-pattern="onlyLetters" data-ng-keydown="enterBuscar(frmHistorico,$event)">
+										    <div class="help-block" data-ng-show="frmHistorico.apellidoPaterno.$error.maxlength"><i class="icon-scytl-error"></i>{{mensajesApp.HEL009(100)}}</div>
+                                            <div class="help-block" data-ng-show="frmHistorico.apellidoPaterno.$error.pattern"><i class="icon-scytl-error"></i>{{mensajesApp.HEL022}}</div>
+                                        </div>
+									</div>
+									<div class="control-group big ng-class: {error:frmHistorico.apellidoMaterno.$error.pattern || frmHistorico.apellidoMaterno.$error.maxlength}">
+										<label class="control-label two-line">Segundo apellido: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+
+											<input type="text" class="" name="apellidoMaterno" data-ng-model="modeloCiudadano.apellidoMaterno" data-ng-maxlength="100" data-ng-trim="false" data-ng-pattern="onlyLetters" data-ng-keydown="enterBuscar(frmHistorico,$event)">
+										    <div class="help-block" data-ng-show="frmHistorico.apellidoMaterno.$error.maxlength"><i class="icon-scytl-error"></i>{{mensajesApp.HEL009(100)}}</div>
+                                            <div class="help-block" data-ng-show="frmHistorico.apellidoMaterno.$error.pattern"><i class="icon-scytl-error"></i>{{mensajesApp.HEL022}}</div>
+
+                                        </div>
+									</div>
+									<div class="control-group big ng-class: {error:frmHistorico.nombreCiudadano.$error.pattern || frmHistorico.nombreCiudadano.$error.maxlength}">
+										<label class="control-label two-line">Nombre: <br>
+										<span class="color-secondary fss">(Del ciudadano)</span></label>
+										<div class="controls">
+
+											<input type="text" class="" name="nombreCiudadano" data-ng-model="modeloCiudadano.nombre" data-ng-maxlength="100" data-ng-trim="false" data-ng-pattern="onlyLetters" data-ng-keydown="enterBuscar(frmHistorico,$event)" >
+											<div class="help-block" data-ng-show="frmHistorico.nombreCiudadano.$error.maxlength"><i class="icon-scytl-error"></i>{{mensajesApp.HEL009(100)}}</div>
+                                            <div class="help-block" data-ng-show="frmHistorico.nombreCiudadano.$error.pattern"><i class="icon-scytl-error"></i>{{mensajesApp.HEL022}}</div>
+                                        </div>
+									</div>
+									<div class="control-group big">
+                                        <label class="control-label">Estado de Solicitud:</label>
+											<div class="controls">
+												<select data-ng-model="itemEstado.idEstadoSolicitud" data-ng-change="cambiaEstado(itemEstado.idEstadoSolicitud)">
+													<option value="" selected="selected" >- Todos -</option>
+													<option value="{{l.idEstadoSolicitud}}" data-ng-repeat="l in listaEstadosSolicitudes" >{{l.descripcionEstado}}</option>
+												</select>
+											</div>
+                                    </div>
+									<div class="flow-actions">
+										<button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="frmHistorico.$invalid" data-ng-click="clicBuscar(frmHistorico)">Buscar</button>
+
+									</div>
+								</div>
+							</div>
+						</form>
+							<div class="bd" data-ng-show="mostrarPreloadBuscar">
+								<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+							</div>
+							<h3 data-ng-show="verListaSolicitudes">Resultados de la búsqueda:</h3>
+							
+							<div class="mod" data-ng-show="verListaSolicitudes">
+								<div class="hd">
+									<h3><i class="icon-list"></i>Lista de solicitudes</h3>
+								</div>
+								<div class="bd">
+									<div class="mod mod-lined">
+										<div class="bd" id="paginacion">
+											<div class="filters-mod">
+												<div class="pull-left">
+													<select class="input-mini" data-ng-model="cantidadRegistrosModel" data-ng-change="cambioPaginacionCantidad()">
+														<option value="10">10</option>
+														<option value="20">20</option>
+														<option value="40">40</option>
+														<option value="60">60</option>
+														<option value="100">100</option>
+													</select>
+													<span>entradas</span>
+												</div>
+											</div>
+											<!-- table-zebra -->
+											<table class="table-zebra table-hover">
+												<thead>
+													<tr>
+														<th>N°</th>
+														<th>N° de solicitud</th>
+														<th>N° de cédula</th>
+														<th>Primer apellido</th>
+														<th>Segundo apellido</th>
+														<th>Nombre</th>
+														<th>Fecha de envío</th>
+														<th>Hora de envío</th>
+														<th>Estado</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr data-ng-repeat="registro in listaSolicitudes" 
+														data-ng-click="clicObtenerDetalle(registro.numeroSolicitud, registro.numeroCedula,registro.apellidoPaterno,registro.apellidoMaterno,registro.nombre,registro.frontfechaHora.fecha,registro.hora,registro.descripcionEstado,$index)" 
+														data-ng-class="{'seleccion-fila': indice==$index}">
+														<td class="mano">{{($index+1)+(cantidadRegistrosModel*(currentPage-1))}}</td>
+														<td class="mano">{{registro.numeroSolicitud}}</td>
+                                                        <td class="mano">{{registro.numeroCedula}}</td>
+														<td class="mano">{{registro.apellidoPaterno}}</td>
+														<td class="mano">{{registro.apellidoMaterno}}</td>
+														<td class="mano">{{registro.nombre}}</td>
+														<td class="mano">{{registro.frontfechaHora.fecha}}</td>
+														<td class="mano">{{registro.hora}}</td>
+														<td class="mano">{{registro.descripcionEstado}}</td>
+													</tr>
+													
+												</tbody>
+											</table>
+											<!-- /table-zebra -->
+											<pagination 
+												on-select-page="onCambiarPaginacion(page)" 
+												total-registros="totalRegistros" 
+												seleccion-mostrar="cantidadRegistrosModel"
+												num-pages="noOfPages"
+												current-page="currentPage"
+												max-size="maxsize" 
+												boundary-links="true" 
+												class="pagination-small" previous-text="&lsaquo;"
+												next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+											</pagination>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div data-ui-alerta="" data-opciones="alertaListaSolicitudesVacia2" ></div>
+							<div class="bd" data-ng-show="mostrarPreloadBuscar2">
+								<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+							</div>
+							<div class="mod" data-ng-show="verListaDetalleSolicitudes">
+								<div class="hd">
+									<h3><i class="icon-list"></i>Histórico de solicitudes</h3>
+									<div class="actions-mod">
+										<export position="reportes.exportar.exportarHistorico.posicion" opciones="reportes.exportar.exportarHistorico.opciones"  is-plantilla="false" url="'RSRepObtenerHistoricoSolicitudTrasladoElectoral'" parametros="parametrosExport"></export>
+	                                	<button class="btn-link" data-ng-click="clickImprimirReporteDetallado()"><i class="icon-scytl-print" ></i>Imprimir</button>
+	                            	</div>
+								</div>
+								<div class="bd">
+									<div class="mod mod-lined">
+										<div class="bd" id="paginacion2">
+											<div class="filters-mod">
+												<div class="pull-left">
+													<select class="input-mini" data-ng-model="cantidadRegistrosModel2" data-ng-change="cambioPaginacionCantidad2()">
+														<option value="10">10</option>
+														<option value="20">20</option>
+														<option value="40">40</option>
+														<option value="60">60</option>
+														<option value="100">100</option>
+													</select>
+													<span>entradas</span>
+												</div>
+											</div>
+											<!-- table-zebra -->
+											<table class="table-zebra table-hover">
+												<thead>
+													<tr>
+														<th>N°</th>
+														<th>Estado</th>
+														<th>Fecha</th>
+														<th>Hora</th>
+														<th>Código de Operador</th>
+														<th>Nombre del Operador</th>
+														<th>Comentario</th>
+														<th>N° de Estación</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr data-ng-repeat="lds in listaDetalleSolicitudes">
+														<td>{{($index+1)+(cantidadRegistrosModel2 *(currentPage2-1))}}</td>
+														<td>{{lds.Estado}}</td>
+														<td>{{lds.Fecha}}</td>
+														<td>{{lds.Hora}}</td>
+														<td>{{lds.Codigo}}</td>
+														<td>{{lds.NombreOperador}}</td>
+														<td>{{lds.Comentario==''?'-':lds.Comentario}}</td>
+														<td>{{lds.NroEstacion}}</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- /table-zebra -->
+											<pagination 
+												on-select-page="onCambiarPaginacion2(page)" 
+												total-registros="totalRegistros2" 
+												seleccion-mostrar="cantidadRegistrosModel2"
+												num-pages="noOfPages2"
+												current-page="currentPage2"
+												max-size="maxsize2" 
+												boundary-links="true" 
+												class="pagination-small" previous-text="&lsaquo;"
+												next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+											</pagination>
+										</div>
+									</div>
+								</div>
+							</div>
+						

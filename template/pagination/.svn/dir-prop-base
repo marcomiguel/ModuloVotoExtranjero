@@ -1,0 +1,25 @@
+K 14
+bugtraq:append
+V 5
+false
+K 13
+bugtraq:label
+V 15
+Redmine Issue :
+K 15
+bugtraq:message
+V 14
+Issue #%BUGID%
+K 14
+bugtraq:number
+V 4
+true
+K 11
+bugtraq:url
+V 47
+https://redmine01.scytl.net/issues/show/%BUGID%
+K 21
+bugtraq:warnifnoissue
+V 4
+true
+END

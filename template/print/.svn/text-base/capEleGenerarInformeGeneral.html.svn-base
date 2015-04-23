@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html data-ng-app="ngApp">
+    <head>
+        <meta charset="utf-8">
+        <title>SIE, Sistema de información electoral</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte-print.css" media="print" />
+		<style>
+		   .nroPagina{
+			float: right;
+		   }
+        </style>
+    </head>
+    <body>
+	
+	
+		<!-- PLANTILLA DE IMPRESION DE REPORTE DE GENERAL DE SITIO WEB ADMINISTRACION - MODULO 8 -->
+		
+        <div data-ng-controller="appCtrl">
+            <div id="wrap">
+                <div class="preload-print" data-ng-show="preload"></div>
+               <div class="btn-print" data-ng-show="btnprint">
+                    <button class="btn btn-large btn-blue" onclick="window.print();"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+                <div class="wrap">
+                    <div style="height:24cm; overflow:hidden">
+                        <h3 class="sub-title-main" style="border-bottom: 1px solid black;text-align:center">ADMINISTRACIÓN DE SITIO WEB</h3><br/>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+						<h3>Reporte General</h3>
+						
+                        <table class="sinrelleno" >
+                            <tbody>
+                                <tr>
+									<td width="10%">Fecha inicial:</td><td style="text-align:left">{{fechaIni}}</td>
+                                </tr>
+								<tr>
+									<td width="10%">Fecha final:</td><td style="text-align:left">{{fechaFin}}</td>
+                                </tr>
+								<tr>
+									<td>&nbsp;</td>
+                                </tr>
+							</tbody>
+                        </table>
+						<table class="sinrelleno">
+							<tr>
+								<td width="45%">Cantidad de usuarios registrados: <strong>{{ parametros.totalRegistrados}} </strong></td>
+                            </tr>
+						</table>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+                        
+                        <div style="width:100%">
+                            <div>
+								<table class="table-zebra table-hover">
+									<thead>
+										<tr>
+											<th width="20%">Curso</th>
+											<th width="20%">Matriculados</th>
+											<th width="15%">En Curso</th>
+											<th width="10%">Aprobados</th>
+											<th width="20%">Reprobados</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<tr data-ng-repeat="lds in generalPagPrimeraCursos">
+											<td style="text-align:right">{{lds.Curso}}</td>
+											<td style="text-align:right">{{lds.Matriculados}}</td>
+											<td style="text-align:right">{{lds.EnCurso}}</td>
+											<td style="text-align:right">{{lds.Aprobado}}</td>
+											<td style="text-align:right">{{lds.Reprobado}}</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+										  <td style="text-align:right"><strong>TOTAL</strong></td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalMatriculados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalenCurso}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalAprobados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalReprobados}}</td>
+										</tr>
+									</tfoot>
+								</table>
+                            </div>
+                        </div>
+                    </div>
+                    <!----  PIE DE PAGINA ---->
+					<div style="border-top: 1px solid black ;"><span><b>Emitido:</b> {{fechaPiePagina}}</span><span class="nroPagina"></span></div>
+                    <div class="page-break"></div>                
+                </div>
+			   <!-- PAGINA 2 -->
+                <div data-ng-repeat="pagina in generalPagRestoCursos" data-ng-init="indice = $index+1; cantidadPag = listaCantidadPaginaImpresasEstados.length">
+                    <div class="wrap">
+                        <div style="height:24cm; overflow:hidden">
+                            <div class="wrap_pag" style="padding:40px 0 20px 0;">
+                                <!-- Siguientes paginas -->
+								<h3 class="sub-title-main" style="border-bottom: 1px solid black ;">Cantidad de usuarios inscritos a los cursos</h3>
+								<div class="separacion">
+									&nbsp;
+								</div>
+								<div>
+									<table class="table-zebra table-hover">
+									<thead>
+										<tr>
+											<th width="20%">Curso</th>
+											<th width="20%">Matriculados</th>
+											<th width="15%">En Curso</th>
+											<th width="10%">Aprobados</th>
+											<th width="20%">Reprobados</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<tr data-ng-repeat="lds in pagina.registros">
+											<td class="">{{lds.Curso}}</td>
+											<td style="text-align:right">{{lds.Matriculados}}</td>
+											<td style="text-align:right">{{lds.EnCurso}}</td>
+											<td style="text-align:right">{{lds.Aprobado}}</td>
+											<td style="text-align:right">{{lds.Reprobado}}</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+										  <td style="text-align:right"><strong>TOTAL</strong></td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalMatriculados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalenCurso}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalAprobados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraCursos.totalReprobados}}</td>
+										</tr>
+									</tfoot>
+								</table>
+								</div>
+                            </div>
+                        </div>
+                        <!----  PIE DE PAGINA ---->
+						<div style="border-top: 1px solid black ;"><span><b>Emitido:</b> {{fechaPiePagina}}</span><span class="nroPagina"></span></div>
+						<div class="page-break"></div>
+                    </div>
+                </div>
+				<!-- PAGINA 2 -->
+                <div data-ng-repeat="pagina in generalPagRestoModulos" data-ng-init="indice = $index+1; cantidadPag = listaCantidadPaginaImpresasEstados.length">
+                    <div class="wrap">
+                        <div style="height:24cm; overflow:hidden">
+                            <div class="wrap_pag" style="padding:40px 0 20px 0;">
+                                <!-- Siguientes paginas -->
+								<h3 class="sub-title-main" style="border-bottom: 1px solid black ;">Cantidad de inscritos a los Modulos</h3>
+								<div class="separacion">
+									&nbsp;
+								</div>
+								<div>
+									<table class="table-zebra table-hover">
+									<thead>
+										<tr>
+											<th width="20%">Curso</th>
+											<th width="20%">Matriculados</th>
+											<th width="15%">En Curso</th>
+											<th width="10%">Aprobados</th>
+											<th width="20%">Reprobados</th>
+										</tr>
+									</thead>
+									
+									<tbody>
+										<tr data-ng-repeat="lds in pagina.registros">
+											<td>{{lds.Curso}}</td>
+											<td style="text-align:right">{{lds.Matriculados}}</td>
+											<td style="text-align:right">{{lds.EnCurso}}</td>
+											<td style="text-align:right">{{lds.Aprobado}}</td>
+											<td style="text-align:right">{{lds.Reprobado}}</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+										  <td style="text-align:right"><strong >TOTAL</strong></td>
+										  <td style="text-align:right">{{ parametros.pieceraModulos.totalMatriculados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraModulos.totalenCurso}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraModulos.totalAprobados}}</td>
+										  <td style="text-align:right">{{ parametros.pieceraModulos.totalReprobados}}</td>
+										</tr>
+									</tfoot>
+								</table>
+								</div>
+                            </div>
+                        </div>
+                        <!----  PIE DE PAGINA ---->
+					<div style="border-top: 1px solid black ;"><span><b>Emitido:</b> {{fechaPiePagina}}</span><span class="nroPagina"></span></div>
+                    <div class="page-break"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../app/data/config.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.es.js"></script>
+        <script type="text/javascript" src="../../static/js/core/jquery.appajax.js"></script>
+        <script type="text/javascript" src="../../static/js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../../app/print.js"></script>
+        <script type="text/javascript">
+            function appCtrl($scope, $timeout, ajaxFactory, hashFactory, dateFactory,printFactory) {
+
+				var ng = $scope;
+
+                ng.prRemotoGeneral = 'prGeneral.aspx/';
+
+                ng.preload = true;
+
+                /* swicth por iframe */
+                if(window.opener == null){
+                    //poup
+                    parametrosFrame = parametrosFrame;
+                }else{
+                    //iframe
+                    parametrosFrame = window.opener.parametrosFrame;
+                }
+                /* /swicth por iframe */
+				
+                var obtenerParametros = function(parametros){
+					ng.parametros = parametros;
+					var filasPorPrimeraPaginaCursos = 24;
+					var filasPorRestoPaginasCursos = 24;
+					var filasPorPrimeraPaginaModulos = 0;
+					var filasPorRestoPaginasModulos = 24;
+					
+					var f1 = new Date(ng.parametros.cabecera.fechaInicial);
+					var f2 = new Date(ng.parametros.cabecera.fechaFinal);
+				
+					ng.fechaIni = dateFactory.convertirDateTime(f1, 'DD/MM/YYYY');
+					ng.fechaFin = dateFactory.convertirDateTime(f2, 'DD/MM/YYYY');
+					
+					ng.totalPaginas = 1+(Math.ceil((ng.parametros.cabecera.total-filasPorPrimeraPaginaCursos)/filasPorRestoPaginasCursos));
+
+					var listaImpresionCursos = printFactory.datosImprimir(ng.parametros.listaCursos, filasPorPrimeraPaginaCursos,filasPorRestoPaginasCursos);
+                    ng.generalPagPrimeraCursos = listaImpresionCursos.listaPrimeraPagina;
+					ng.generalPagRestoCursos   = listaImpresionCursos.listaCantidadPaginasImpresas;
+					
+					var listaImpresionModulos = printFactory.datosImprimir(ng.parametros.listaModulos, filasPorPrimeraPaginaModulos,filasPorRestoPaginasModulos);
+                    ng.generalPagPrimeraModulos = listaImpresionModulos.listaPrimeraPagina;
+					ng.generalPagRestoModulos = listaImpresionModulos.listaCantidadPaginasImpresas;
+                };
+				
+				var obtenerPaginacion = function(){
+					 var paginas = angular.element('.wrap')
+					 
+					 angular.element.each(paginas, function(key, pagina){
+					  angular.element(pagina).find('.nroPagina').html(key + 1 + '/' + paginas.length);
+					 });
+				};
+				
+                var obtenerFechaSistema = function() {
+					$timeout(function(){
+					
+						obtenerPaginacion();
+						imprimir();
+					},500);
+                    var parametros = {
+                    };
+                    ajaxFactory.consultar(ng.prRemotoGeneral + 'ObtenerFechaSistema', parametros, function(data){
+                        ng.safeApply(function(){
+                            if(data.success){
+                                ng.fechaPiePagina = dateFactory.convertirDateTime(data.respuesta, 'DD/MM/YYYY h:mm:ss A');
+								
+                            }else{
+                                ng.preload = false;
+                            }
+                        });
+                    }, function(error){
+                        ng.preload = false;
+                    }, function(){
+                        ng.preload = true;
+                    }); 
+                };
+
+                var imprimir = function(){
+                    window.focus();
+                    $timeout(function() {
+                        window.print();
+                        ng.preload = false;
+                        ng.btnprint = true;
+                    }, 250);
+                };
+
+                ng.init = function(){
+                    obtenerParametros(parametrosFrame);
+                    obtenerFechaSistema();
+					
+                };
+                ng.safeApply = function(fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && ( typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
+                ng.init();
+            }
+        </script>
+    </body>
+</html>

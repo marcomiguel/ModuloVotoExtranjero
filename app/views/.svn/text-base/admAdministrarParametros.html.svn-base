@@ -1,0 +1,136 @@
+﻿ <div data-ui-alerta="" data-opciones="alertaParametros"></div>
+<!-- Titulo -->
+<h2>Administrar parámetros</h2>
+<div id="formParametros">
+    <form name="frmParametros" novalidate >
+
+	
+		<fieldset class="mod" > <!-- data-ng-if="directivaLista"-->
+			<div class="hd">
+				<h3>Fecha de recepción de solicitudes: </h3>
+			</div>
+			<div class="bd">
+				<eventdate 
+					
+					data-ed-start-model			="modFecIni" 
+					data-ed-end-model			="modFecFin" 
+					data-ed-start-time-model	="modHorIni" 
+					data-ed-end-time-model		="modHorFin" 
+					data-ed-required			="true" 
+					data-ed-validate			="isValid" 
+					data-ed-format-time			="12" 
+					data-ed-time-picker			="edTimePicker" 
+					data-ed-start-label			="Desde" 
+					data-ed-end-label			="Hasta"
+					data-ed-label-time-start 	="a" 
+					data-ed-label-time-end		="b" 
+					data-ed-reset				="esReset"
+				>
+				</eventdate>
+				
+      			<button class="btn mbm mtl" role="button" data-ng-disabled="isValid || botonGuardarFechaRecepcion" data-ng-click="guardarRangoFechas()">Guardar</button>
+			</div>
+
+		</fieldset>
+	
+    <fieldset class="mod">
+      	<div class="hd">
+        <h3>Fecha de vencimiento de cédula:</h3>
+        </div>
+
+        <div class="bd form-horizontal">
+        		<div class="control-group mini">
+      				<label class="control-label">Fecha:</label>
+                    <div class="controls">
+						
+                        <div class="input-append date inline">
+                            <span class="Zebra_DatePicker_Icon_Wrapper">
+                                <input zdp-direction="direccion" data-ng-readonly="false" data-ng-model="modeloFechaVencimiento" class="input-small datepicker " type="text" name="" placeholder="dd/mm/aaaa" data-date-format="d/m/Y" data-ui-datepicker="">
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </span>
+                        </div>
+						
+                        <button class="btn" role="button" data-ng-disabled="deshabilitarBotonFechaVencimiento" data-ng-click="guardarFechaVencimiento()">Guardar</button>
+      				</div>
+      			</div>
+        </div>
+
+    </fieldset>
+
+    <fieldset class="mod">
+      	<div class="hd">
+        <h3>Estación:</h3>
+        </div>
+
+        <div class="bd form-horizontal">
+        		<div class="control-group mini" data-ng-class="{error:frmParametros.cantMaxSolicitud.$error.pattern || frmParametros.cantMaxSolicitud.$error.maxlength || frmParametros.cantMaxSolicitud.$error.minlength}">
+      				<label class="control-label">N° de Estación:</label>
+                    <div class="controls">
+                        <input data-ng-model="modeloCantidadMaximaSolicitudes" class="input-small mb0 mrs" data-ng-pattern="onlyNumbers" data-ng-maxlength="3" data-ng-minlength="0" type="text" name="cantMaxSolicitud" data-ng-required="true">
+						<button class="btn" role="button" data-ng-disabled="deshabilitarBotonCantidadMaximaSolicitudes || frmParametros.cantMaxSolicitud.$invalid" data-ng-click="guardarCantidadMaximaSolicitudes(frmParametros)">Guardar</button>
+						<div class="help-block" data-ng-show="frmParametros.cantMaxSolicitud.$error.maxlength ||frmParametros.cantMaxSolicitud.$error.minlength"><i class="icon-scytl-error"></i>{{ mensajes.HEL009(3)}} </div>
+                        <div class="help-block" data-ng-show="frmParametros.cantMaxSolicitud.$error.pattern"><i class="icon-scytl-error"></i>{{ mensajes.HEL018 }}</div>
+					</div>
+      			</div>
+        </div>
+
+    </fieldset>
+
+    <fieldset class="mod">
+      	<div class="hd">
+        <h3> Tamaño máximo de imágenes (en kb):</h3>
+        </div>
+
+        <div class="bd form-horizontal">
+        		<div class="control-group mini " data-ng-class="{error:frmParametros.tamanoJPG.$error.pattern || frmParametros.tamanoJPG.$error.maxlength || frmParametros.tamanoJPG.$error.minlength}">
+      				<label class="control-label">JPG:</label>
+                    <div class="controls">
+                        <input data-ng-model="modeloTamanoMaximoJPG" class="input-small mb0 mrs" data-ng-pattern="onlyNumbers" data-ng-minlength="1" data-ng-maxlength="5" type="text" name="tamanoJPG" data-ng-required="true">
+                        <button class="btn" role="button" data-ng-disabled="deshabilitarBotonTamanoMaximoJPG || frmParametros.tamanoJPG.$invalid || modeloTamanoMaximoJPG < 1" data-ng-click="guardarMaximoTamanoImagenJPG(frmParametros)">Guardar</button>
+						<div class="help-block" data-ng-show="frmParametros.tamanoJPG.$error.maxlength || frmParametros.tamanoJPG.$error.minlength"><i class="icon-scytl-error"></i>{{ mensajes.HEL009(5)}}</div>
+                        <div class="help-block" data-ng-show="frmParametros.tamanoJPG.$error.pattern"><i class="icon-scytl-error"></i>{{ mensajes.HEL018 }}</div>
+					</div>
+      			</div>
+        		<div class="control-group mini" data-ng-class="{error:frmParametros.tamanoBMP.$error.pattern || frmParametros.tamanoBMP.$error.maxlength || frmParametros.tamanoBMP.$error.minlength}">
+      				<label class="control-label">BMP:</label>
+                    <div class="controls">
+                        <input data-ng-model="modeloTamanoMaximoBMP" class="input-small mb0 mrs" data-ng-pattern="onlyNumbers" data-ng-minlength="1" data-ng-maxlength="5" type="text" name="tamanoBMP" data-ng-required="true" >
+                        <button class="btn" role="button" data-ng-disabled="deshabilitarBotonTamanoMaximoBMP || frmParametros.tamanoBMP.$invalid || modeloTamanoMaximoBMP < 1" data-ng-click="guardarMaximoTamanoImagenBMP(frmParametros)">Guardar</button>
+						<div class="help-block" data-ng-show="frmParametros.tamanoBMP.$error.maxlength || frmParametros.tamanoBMP.$error.minlength"><i class="icon-scytl-error"></i>{{ mensajes.HEL009(5)}}</div>
+						<div class="help-block" data-ng-show="frmParametros.tamanoBMP.$error.pattern"><i class="icon-scytl-error"></i>{{ mensajes.HEL018 }}</div>
+					</div>
+      			</div>
+        </div>
+    </fieldset>
+	
+	
+	
+	<fieldset class="mod">
+      	<div class="hd">
+        <h3>Visualización de video instructivo:</h3>
+        </div>
+
+        <div class="bd form-horizontal">
+        		<div class="control-group mini" >
+      				<label class="control-label">Mostrar video instructivo</label>
+                    <div class="controls">
+                        <input type="checkbox" name="chkVideoInstructivo" data-ng-model="modeloChkVideoInstructivo"   ng-checked="modeloChkVideoInstructivo==='S'" data-ng-true-value="S" data-ng-false-value="N">
+						<button class="btn" role="button" data-ng-disabled="deshabilitarBotonChkVideoInstructivo" data-ng-click="guardarChkVideoInstructivo(frmParametros)">Guardar</button>
+					</div>
+					
+      			</div>
+        </div>
+
+    </fieldset>
+	
+    <!-- aqui va el boton guardar cambios-->
+    <div class="actions page text-center">
+        <button class="btn btn-blue" role="button" data-ng-click="guardarTodo(frmParametros)" data-ng-disabled="frmParametros.$invalid || isValid || botonGuardarGeneral"> 
+          Guardar todos los cambios 
+		</button>
+    </div> 
+
+</form>
+    
+
+</div>

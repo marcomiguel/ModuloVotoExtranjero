@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="ngApp">
+    <head>
+        <meta charset="utf-8">
+        <title>SIE, Sistema de información electoral</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte-print.css" media="print" />
+        <!--[if IE]>
+	    <link rel="stylesheet" type="text/css" href="../../static/css/reporte-print-ie.css" media="print" />
+	    <![endif]-->
+        <style type="text/css">
+            .vmiddle{
+                vertical-align: middle;
+            }
+            .ctxt{
+                text-align: center;
+            }
+            .ltxt{
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-ng-controller="appCtrl">
+            <div id="wrap">
+                <div class="preload-print" data-ng-show="preload"></div>
+                <div class="btn-print" data-ng-show="btnprint">
+                    <button class="btn btn-large btn-blue" onclick="window.print();"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+                <div class="wrap">
+                    <div style="height:24cm; overflow:hidden">
+                        <h3 class="sub-title-main" style="border-bottom: 1px solid black;text-align:center">TRIBUNAL SUPREMO DE ELECCIONES<BR/>SISTEMA DE TRASLADO ELECTORAL PARA VOTO EN EL EXTRANJERO</h3><br/>
+						<h3>Reporte de Datos de Perfil entre Fecha de Acciones</h3>
+						<div class="separacion">
+                            &nbsp;
+                        </div>
+                        <table class="sinrelleno" >
+                            <tbody>
+								<tr>
+									<td width="20%">Fecha de Acción:</td>
+                                    <td style="text-align:left" width="80%">{{formatearFecha(parametros.cabecera.fechaInicio)}} al {{formatearFecha(parametros.cabecera.fechaFin)}}</td>
+                                </tr>
+							</tbody>
+                        </table>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+                        <div style="width:100%">
+                            <div>
+								<table class="table-zebra table-hover">
+									<thead>
+										<tr>
+                                            <th class="ctxt vmiddle" width="15%">Nombre del perfil</th>
+                                            <th class="ctxt vmiddle" width="40%">Permisos Asociados</th>
+                                            <th class="ctxt vmiddle" width="10%">Descripción</th>
+                                            <th class="ctxt vmiddle" width="10%">Fecha de creación</th>
+                                            <th class="ctxt vmiddle" width="10%">Fecha de modificación</th>
+                                            <th class="ctxt vmiddle" width="15%">Motivo cambio al perfil</th>
+										</tr>
+									</thead>
+									<tbody>
+                                        <!-- <tr data-ng-repeat="item in parametros.lista">
+                                            <td style="text-align:center" width="15%">{{item.perfil.descripcion}}</td>
+                                            <td class="ctxt vmiddle" width="40%">
+                                                <span data-ng-repeat="i in item.permisosAsociados">
+                                                    {{i.nombre}}<i data-ng-if="($index+1)!==item.permisosAsociados.length">, </i>
+                                                </span>                        
+                                            </td>
+                                            <td class="ctxt vmiddle" width="10%">{{item.descripcionPerfil}}</td>
+                                            <td class="ctxt vmiddle" width="10%">{{item.fechaCreacion}}</td>
+                                            <td class="ctxt vmiddle" width="10%">{{item.fechaModificacion}}</td>
+                                            <td class="ctxt vmiddle" width="10%">
+                                                <ul>
+                                                    <li data-ng-repeat="i in item.motivoCambioUsuario">
+                                                        {{i.motivoModificacion}}
+                                                    </li>
+                                                </ul>                   
+                                            </td>
+                                        </tr> -->
+									   <tr data-ng-repeat="item in listaReporte3b" data-ng-switch on="item.opcion">
+                                            <td class="ctxt vmiddle" width="15%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                {{item.nombrePerfil}}
+                                            </td>
+                                            <td class="ctxt vmiddle" width="40%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                <span data-ng-repeat="i in item.permisosAsociados">
+                                                    {{i.nombre}}<i data-ng-if="($index+1)!==i.permisosAsociados.length">, </i>
+                                                </span>
+                                            </td>
+                                            <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                {{item.descripcionPerfil}}
+                                            </td>
+                                            <td class="ctxt vmiddle" width="10%" data-ng-switch-when="c" rowspan="{{item.rowspan}}">
+                                                {{item.fechaCreacion}}     
+                                            </td>
+                                            <!-- <td class="ctxt vmiddle" width="10%" data-ng-switch-when="s">
+                                                {{formatearFecha(item.motivoCambioUsuario.fechaModificacion)}}     
+                                            </td>
+                                            <td class="ctxt vmiddle" width="15%" data-ng-switch-when="s">
+                                                {{item.motivoCambioUsuario.motivoModificacion}}     
+                                            </td> -->
+                                            <td class="ctxt vmiddle" width="10%">
+                                                 &nbsp;    
+                                            </td>
+                                            <td class="ctxt vmiddle" width="15%">
+                                                 &nbsp;
+                                            </td>
+                                        </tr>
+                                    </tbody>
+								</table>
+                            </div>
+                        </div>
+                    </div>
+                    <!----  PIE DE PAGINA ---->
+                    <div style="border-top: 1px solid black ;">
+                        <span>
+                            <b>Fecha de impresión:</b> {{fechaPiePagina}}
+                        </span>
+                        <!-- <span style="float: right;">1/{{totalPaginas}}</span> -->
+                        <span style="float: right;">1/1</span>
+                    </div>
+					          <!--<div class="page-break"></div>-->
+                    <div data-ng-class="{'page-break':historicoPagResto.length > 0}"></div>
+                </div>
+               <!-- PAGINA 2 -->
+                <div data-ng-repeat="pagina in historicoPagResto" data-ng-init="indice = $index+1; cantidadPag = listaCantidadPaginaImpresasEstados.length">
+                    <div class="wrap">
+                        <div style="height:24cm; overflow:hidden">
+                            <div class="wrap_pag" style="padding:40px 0 20px 0;">
+                                <!-- Siguientes paginas -->
+								<h3 class="sub-title-main" style="border-bottom: 1px solid black ;">Reporte de Usuarios</h3>
+								<div class="separacion">
+									&nbsp;
+								</div>
+								<div>
+									<!-- <table class="table table-bordered">
+										<thead>
+										<tr>
+											<th>PAÍS</th>
+											<th>CONSULADO</th>
+											<th>GÉNERO</th>
+											<th>ESTACIÓN</th>
+											<th>TOTAL DE SOLICITUDES</th>
+										</tr>
+									</thead>
+										<tbody>
+											<tr data-ng-repeat="lds in estadisticasPagResto">
+											
+												<td>{{lds.pais}}</td>
+												<td>{{lds.consulado}}</td>
+												<td>{{lds.genero}}</td>
+												<td>{{lds.estacion}}</td>
+												<td>{{lds.totalSolicitudes}}</td>
+											</tr>
+										</tbody>
+									</table> -->
+								</div>
+                            </div>
+                        </div>
+                        <!----  PIE DE PAGINA ---->
+                        <div style="border-top: 1px solid black ;">
+                            <span>
+                                <b>Fecha de impresión:</b> {{fechaPiePagina}}
+                            </span>
+                            <!-- <span style="float: right;">1/{{totalPaginas}}</span> -->
+                            <span style="float: right;">1/1</span>
+                        </div>
+                        <div ng-class="{'page-break':!$last}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../app/data/config.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.es.js"></script>
+        <script type="text/javascript" src="../../static/js/core/jquery.appajax.js"></script>
+        <script type="text/javascript" src="../../static/js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../../app/print.js"></script>
+        <script type="text/javascript">
+            function appCtrl($scope, $timeout, ajaxFactory, hashFactory, dateFactory, printFactory) {
+
+                var ng = $scope;
+
+                ng.prRemotoGeneral = 'prGeneral.aspx/';
+
+                ng.preload = true;
+
+                /* swicth por iframe */
+                if (window.opener == null) {
+                    //poup
+                    parametrosFrame = parametrosFrame;
+                } else {
+                    //iframe
+                    parametrosFrame = window.opener.parametrosFrame;
+                }
+                /* /swicth por iframe */
+
+                var obtenerParametros = function (parametros) {
+                    ng.parametros = parametros;
+                    ng.listaReporte3b = parametros.lista;
+                    var listaImpresion = printFactory.datosImprimir(ng.parametros.estadisticas, 24, 3);
+                    ng.estadisticasPagPrimera = listaImpresion.listaPrimeraPagina;
+                    ng.estadisticasPagResto = listaImpresion.listaCantidadPaginasImpresas;
+                };
+
+                var obtenerPaginacion = function(){
+                    var paginas = angular.element('.wrap')
+                    angular.element.each(paginas, function(key, pagina){
+                        angular.element(pagina).find('.nroPagina').html(key + 1 + '/' + paginas.length);
+                    }); 
+                };
+
+                var obtenerFechaSistema = function () {
+                    ajaxFactory.consultar(ng.prRemotoGeneral + 'ObtenerFechaSistema',{}, function (data) {
+                        ng.safeApply(function () {
+                            if (data.success) {
+                                ng.fechaPiePagina = dateFactory.convertirDateTime(data.respuesta, 'DD/MM/YYYY');
+                                imprimir();
+                            } else {
+                                ng.preload = false;
+                            }
+                        });
+                    }, function (error) {
+                        ng.preload = false;
+                    }, function () {
+                        ng.preload = true;
+                    });
+                };
+
+                var imprimir = function () {
+                    window.focus();
+                    $timeout(function () {
+                        window.print();
+                        ng.preload = false;
+                        ng.btnprint = true;
+                    }, 250);
+                };
+
+                var init = function () {
+                    obtenerParametros(parametrosFrame);
+                    obtenerFechaSistema();
+                };
+
+                ng.safeApply = function (fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && (typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
+                ng.formatearFecha=function(fecha){
+                    return moment(fecha).format('DD/MM/YYYY');
+                };
+
+                init();
+            }
+        </script>
+    </body>
+</html>

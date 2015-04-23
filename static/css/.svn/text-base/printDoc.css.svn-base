@@ -1,0 +1,42 @@
+@charset "utf-8";
+@media print{
+    .preload-print, .btn-print{ display:none!important }
+}
+.preload-print{ position:fixed; left:0; top:0; z-index:9; display:block;background:#fff url('../img/icon-processing.gif') 48% 100px no-repeat;margin:0;height:100%;width:100%;}
+.btn-print{ position:fixed; z-index:9; display:block; background:#fff; margin:0;height:100%;width:100%; text-align:center }
+.btn-print .btn-blue{
+	margin:100px auto 0;
+	padding:10px 15px;
+	font-size:16px;
+	color: #fff;
+	cursor:pointer;
+	display:inline-block
+}
+.btn-blue{
+	background-image: -moz-linear-gradient(top,#455b80 0,#455b80 100%);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#455B80),color-stop(100%,#455B80));
+	background-image: -webkit-linear-gradient(top,#455B80 0,#455B80 100%);
+	background-image: -o-linear-gradient(top,#455b80 0,#455b80 100%);
+	background-image: -ms-linear-gradient(top,#455b80 0,#455b80 100%);
+	background-image: linear-gradient(to bottom,#455B80 0,#455B80 100%);
+	background-color: #455B80;
+	color: #FFF;
+	border: 1px solid #3F577F;
+	text-shadow: 1px 1px 0 #20376F;
+	box-shadow: none;
+}
+.btn-blue:hover,.btn-blue:focus{
+	background-color:#3a4d6c!important;
+	background-image:none!important;
+}
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+	background-image: url('../img/icons-sprite.png');
+	background-repeat: no-repeat;
+	margin-right: 5px;
+	margin-left: 0;
+	height: 16px;
+	width: 16px;
+	vertical-align: text-bottom;
+}
+i.icon-scytl-print, i.icon-scytl-print:hover { background-position: -32px -200px; }

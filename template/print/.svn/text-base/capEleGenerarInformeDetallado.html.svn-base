@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html data-ng-app="ngApp">
+    <head>
+        <meta charset="utf-8">
+        <title>SIE, Sistema de información electoral</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte-print.css" media="print" />
+		<style>
+		   .nroPagina{
+			float: right;
+			}
+        </style>
+    </head>
+    <body>
+	
+	
+		<!-- PLANTILLA DE IMPRESION DE REPORTE DE DETALLADO - SITIO WEB ADMINISTRACION - MODULO 8 -->
+		
+        <div data-ng-controller="appCtrl">
+            <div id="wrap">
+                <div class="preload-print" data-ng-show="preload"></div>
+				<div class="btn-print" data-ng-show="btnprint">
+                    <button class="btn btn-large btn-blue" onclick="window.print();"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+                <div class="wrap">
+                    <div style="height:24cm; overflow:hidden">
+                        <h3 class="sub-title-main">Reporte Detallado</h3><br/>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+                        <table class="sinrelleno" >
+                            <tbody>
+                                <tr>
+									<td width="20%">Fecha inicial:</td><td style="text-align:left">{{convertDatefunction(parametros.cabecera.fechaInicial)}}</td>
+                                </tr>
+								<tr>
+									<td>Fecha final:</td><td style="text-align:left">{{convertDatefunction(parametros.cabecera.fechaFinal)}}</td>
+                                </tr>
+								<tr>
+									<td>&nbsp;</td>
+                                </tr>
+							</tbody>
+                        </table>
+                        <div class="separacion">
+                            &nbsp;
+                        </div>
+						
+                        <h3 class="sub-title-main">Reporte Detallado</h3>
+                        <div style="width:100%">
+                            <div>
+								<table class="table-zebra table-hover">
+									<thead>
+										<th data-ng-show="fc.visible" data-ng-repeat="fc in parametros.cabeceras">{{fc.titulo}}</th>
+
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="ld in detalladoPagPrimera">
+											<td class="ctxt" data-ng-show="validarMostrar('fechaRegistro')">{{formatearFecha(ld.fechaRegistro)}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('nombreCurso')">{{ld.nombreCurso}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('fechaInscripcionCurso')">{{formatearFecha(ld.fechaInscripcionCurso)}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('fechaFinalizacionCurso')">{{formatearFecha(ld.fechaFinalizacionCurso)}}</td>
+											<td class="rtxt" data-ng-show="validarMostrar('notaCurso')">{{ld.notaCurso}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('resultadoCurso')">{{ld.resultadoCurso}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('nombreModulo')">{{ld.nombreModulo}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('fechaFinalizacionModulo')">{{formatearFecha(ld.fechaFinalizacionModulo)}}</td>
+											<td class="rtxt" data-ng-show="validarMostrar('notaModulo')">{{ld.notaModulo}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('resultadoModulo')">{{ld.resultadoModulo}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('cedula')">{{ld.cedula}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('nombre')">{{ld.nombre}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('primerApellido')">{{ld.primerApellido}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('segundoApellido')">{{ld.segundoApellido}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('agenteElectoral')">{{ld.agenteElectoral}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('nacionalidad')">{{ld.nacionalidad}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('telefono')">{{ld.telefono}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('email')">{{ld.email}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('idPais')">{{ld.idPais}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('provincia')">{{ld.provincia}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('canton')">{{ld.canton}}</td>
+											<td class="ctxt" data-ng-show="validarMostrar('distrito')">{{ld.distrito}}</td>
+										</tr>
+									</tbody>
+								</table>
+                            </div>
+                        </div>
+                    </div>
+                    <!----  PIE DE PAGINA ---->
+					<div style="border-top: 1px solid black ;"><span><b>Emitido:</b> {{fechaPiePagina}}</span><span class="nroPagina"></span></div>
+                    <div class="page-break"></div>
+                </div>
+               <!-- PAGINA 2 -->
+                <div data-ng-repeat="pagina in detalladoPagResto" data-ng-init="indice = $index+1; cantidadPag = listaCantidadPaginaImpresasEstados.length">
+                    <div class="wrap">
+                        <div style="height:24cm; overflow:hidden">
+                            <div class="wrap_pag" style="padding:40px 0 20px 0;">
+                                <!-- Siguientes paginas -->
+								<div class="separacion">
+									&nbsp;
+								</div>
+								<div>
+									<table class="table table-bordered">
+										<thead>
+										<th data-ng-show="fc.visible" data-ng-repeat="fc in parametros.cabeceras">{{fc.titulo}}</th>
+									</thead>
+										<tbody>
+											<tr data-ng-repeat="ld in paginas.registros">
+												<td class="ctxt" data-ng-show="validarMostrar('fechaRegistro')">{{formatearFecha(ld.fechaRegistro)}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('nombreCurso')">{{ld.nombreCurso}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('fechaInscripcionCurso')">{{formatearFecha(ld.fechaInscripcionCurso)}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('fechaFinalizacionCurso')">{{formatearFecha(ld.fechaFinalizacionCurso)}}</td>
+												<td class="rtxt" data-ng-show="validarMostrar('notaCurso')">{{ld.notaCurso}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('resultadoCurso')">{{ld.resultadoCurso}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('nombreModulo')">{{ld.nombreModulo}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('fechaFinalizacionModulo')">{{formatearFecha(ld.fechaFinalizacionModulo)}}</td>
+												<td class="rtxt" data-ng-show="validarMostrar('notaModulo')">{{ld.notaModulo}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('resultadoModulo')">{{ld.resultadoModulo}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('cedula')">{{ld.cedula}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('nombre')">{{ld.nombre}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('primerApellido')">{{ld.primerApellido}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('segundoApellido')">{{ld.segundoApellido}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('agenteElectoral')">{{ld.agenteElectoral}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('nacionalidad')">{{ld.nacionalidad}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('telefono')">{{ld.telefono}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('email')">{{ld.email}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('idPais')">{{ld.idPais}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('provincia')">{{ld.provincia}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('canton')">{{ld.canton}}</td>
+												<td class="ctxt" data-ng-show="validarMostrar('distrito')">{{ld.distrito}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+                            </div>
+                        </div>
+                         <!----  PIE DE PAGINA ---->
+						<div style="border-top: 1px solid black ;"><span><b>Emitido:</b> {{fechaPiePagina}}</span><span class="nroPagina"></span></div>
+						<div class="page-break"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../app/data/config.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.es.js"></script>
+        <script type="text/javascript" src="../../static/js/core/jquery.appajax.js"></script>
+        <script type="text/javascript" src="../../static/js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../../app/print.js"></script>
+        <script type="text/javascript">
+            function appCtrl($scope, $timeout, ajaxFactory, hashFactory, dateFactory,printFactory) {
+
+				var ng = $scope;
+
+                ng.prRemotoGeneral = 'prGeneral.aspx/';
+
+                ng.preload = true;
+
+                /* swicth por iframe */
+                if(window.opener == null){
+                    //poup
+                    parametrosFrame = parametrosFrame;
+                }else{
+                    //iframe
+                    parametrosFrame = window.opener.parametrosFrame;
+                }
+                /* /swicth por iframe */
+				
+				var obtenerPaginacion = function(){
+					 var paginas = angular.element('.wrap')
+					 
+					 angular.element.each(paginas, function(key, pagina){
+					  angular.element(pagina).find('.nroPagina').html(key + 1 + '/' + paginas.length);
+					 });
+				};
+				
+                var obtenerParametros = function(parametros){
+					ng.parametros = parametros;
+					var filasPorPrimeraPagina = 24;
+					var filasPorRestoPaginas = 24;
+					ng.totalPaginas = 1+(Math.ceil((ng.parametros.cabecera.total-filasPorPrimeraPagina)/filasPorRestoPaginas));
+
+					var listaImpresion = printFactory.datosImprimir(ng.parametros.detallado, filasPorPrimeraPagina,filasPorRestoPaginas);
+                    ng.detalladoPagPrimera = listaImpresion.listaPrimeraPagina;
+					ng.detalladoPagResto   = listaImpresion.listaCantidadPaginasImpresas;
+					
+                };
+				
+				ng.validarMostrar = function(campo){
+				var b=false;
+					angular.forEach(ng.parametros.cabeceras,function(v,k){
+						if(v.atributo===campo && v.visible===true){
+							b=true;
+						}
+					});
+					return b;
+				};
+				
+				ng.formatearFecha = function(time, caracterVacio){
+					return !!time ? dateFactory.convertirDateTime(time, 'DD/MM/YYYY') : caracterVacio;
+				};
+				
+				ng.convertDatefunction = function(inputFormat) {
+				  function pad(s) { return (s < 10) ? '0' + s : s; }
+				  var d = new Date(inputFormat);
+				  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+				};
+				
+                var obtenerFechaSistema = function() {
+					obtenerPaginacion();
+					imprimir();
+                    var parametros = {
+                    };
+					
+                    ajaxFactory.consultar(ng.prRemotoGeneral + 'ObtenerFechaSistema', parametros, function(data){
+                        ng.safeApply(function(){
+                            if(data.success){
+                                ng.fechaPiePagina = dateFactory.convertirDateTime(data.respuesta, 'DD/MM/YYYY h:mm:ss A');
+								
+                            }else{
+                                ng.preload = false;
+                            }
+                        });
+                    }, function(error){
+                        ng.preload = false;
+                    }, function(){
+                        ng.preload = true;
+                    }); 
+                };
+
+                var imprimir = function(){
+                    window.focus();
+                    $timeout(function() {
+                        window.print();
+                        ng.preload = false;
+                        ng.btnprint = true;
+                    }, 250);
+                };
+
+                ng.init = function(){
+                    obtenerParametros(parametrosFrame);
+                    obtenerFechaSistema();
+					
+                };
+                ng.safeApply = function(fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && ( typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
+                ng.init();
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="ngApp">
+    <head>
+        <meta charset="utf-8">
+        <title>SIE, Sistema de información electoral</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/reporte-print.css" media="print" />
+        <!--[if IE]>
+	    <link rel="stylesheet" type="text/css" href="../../static/css/reporte-print-ie.css" media="print" />
+	    <![endif]-->
+        <style type="text/css">
+            .plomito{
+                background-color: #D3D3D3 !important;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div> -->
+        <div data-ng-controller="appCtrl">
+            <div id="wrap">
+                <div class="preload-print" data-ng-show="preload"></div>
+                <div class="btn-print" data-ng-show="btnprint">
+                    <button class="btn btn-large btn-blue" onclick="window.print();"><i class="icon-scytl-print"></i>Imprimir</button>
+				</div>
+                <div class="wrap">
+                    <div style="height:24cm; overflow:hidden">
+                        <!-- <div> -->
+                        <p style="text-align:center; font-style:italic; font-weight:bold; font-size:16px; margin:0px; padding:0px;margin-bottom:5px;">
+                            TRIBUNAL SUPREMO DE ELECCIONES <br/>REGISTRO CIVIL    
+                        </p>
+                        <table border="1" style="width:100%;">
+                            <!-- <tr>
+                                <td colspan="4" align="center">
+                                    TRIBUNAL SUPREMO DE ELECCIONES REGISTRO CIVIL
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td colspan="3" bgcolor="#D3D3D3" align="center" class="plomito">
+                                    COMPROBANTE ENVIADO A EMAIL DEL INTERESADO:<br/>
+                                    <b>{{parametros.solicitud.correoElectronico}}</b> 
+                                </td>
+                                <td>
+                                    NÚMERO DE SOLICITUD:<br/>
+                                    <b>{{parametros.solicitud.numeroSolicitud}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    SOLICITUD DE:<br/>
+                                    <b>TRASLADO ELECTORAL (electrónico)</b> 
+                                </td>
+                                <td>
+                                    CÉDULA NÚMERO:<br/>
+                                    <b>{{parametros.solicitud.numeroCedula}}</b>
+                                </td>
+                                <td>
+                                    VENC. DE CÉDULA:<br/>
+                                    <b>{{parametros.solicitud.frontfechaVencimientoCedula.fecha}}</b>
+                                </td>
+                                <td>
+                                    N° CONSEC. CÉDULA:<br/>
+                                    <b>{{parametros.solicitud.consecutivoCedula}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    APELLIDOS Y NOMBRE DEL SOLICITANTE:<br/>
+                                    <b>{{parametros.solicitud.apellidoPaterno}} {{parametros.solicitud.apellidoMaterno}} {{parametros.solicitud.nombre}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    CONOCIDO COMO:<br/>
+                                    <b>{{parametros.solicitud.conocidoComo}}</b>
+                                </td>
+                                <td>
+                                    SEXO:<br/>
+                                    <b>{{parametros.solicitud.sexo}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    PADRE:<br/>
+                                    <b>{{parametros.solicitud.nombresPadre}}</b>
+                                </td>
+                                <td colspan="2">
+                                    MADRE:<br/>
+                                    <b>{{parametros.solicitud.nombresMadre}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    LUGAR DE NACIMIENTO:<br/>
+                                    <b>{{parametros.solicitud.lugarNacimiento}}</b>
+                                </td>
+                                <td>
+                                    FECHA DE NACIMIENTO:<br/>
+                                    <b>{{parametros.solicitud.frontfechaNacimiento.fecha}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" bgcolor="#D3D3D3" align="center">
+                                    <b>DATOS DEL TRASLADO</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    PROVINCIA:<br/>
+                                    <b>EXTERIOR</b>
+                                </td>
+                                <td>
+                                    PAIS DE TRASLADO:<br/>
+                                    <b>{{parametros.solicitud.paisResidenciaExterior? parametros.solicitud.paisResidenciaExterior.toString().substring(0,50):''}}</b>
+                                </td>
+                                <td colspan="2">
+                                    DISTRITO ADMINISTRATIVO:<br/>
+                                    <b>&nbsp;</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    DISTRITO ELECTORAL:<br/>
+                                    <b>{{parametros.solicitud.consulado}}</b>
+                                </td>
+                                <td colspan="2">
+                                    LUGAR DE VOTACIÓN:<br/>
+                                    <b>{{parametros.solicitud.consulado}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    DIRECCIÓN EXACTA DE LA CASA EN EL EXTRANJERO<br/>
+                                    <b>{{parametros.solicitud.direccionExacta}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    PAÍS DE RESIDENCIA:<br/>
+                                    <b>{{parametros.solicitud.paisResidenciaExterior? parametros.solicitud.paisResidenciaExterior.toString().substring(0,50):''}}</b>
+                                </td>
+                                <td>
+                                    TELÉFONO EN EL EXTERIOR:<br/>
+                                    <b>{{parametros.solicitud.telefonoExterior}}</b>
+                                </td>
+                                <td colspan="2">
+                                    LUGAR Y FECHA:<br/>
+                                    <b>FORMULARIO WEB {{parametros.solicitud.frontfechaHora.fecha}} {{parametros.solicitud.hora}}</b>
+                                </td>   
+                            </tr>
+                            <tr>
+                                <td>
+                                    CIUDAD EN EL EXTERIOR:<br/>
+                                    <b>{{parametros.solicitud.ciudadResidenciaExterior}}</b>
+                                </td>
+                                <td colspan="3">
+                                    CORREO ELECTRÓNICO:<br/>
+                                    <b>{{parametros.solicitud.correoElectronico}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" bgcolor="#D3D3D3" align="center">
+                                    <b>DATOS DE REFERENCIA EN COSTA RICA</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    DIRECCIÓN EN COSTA RICA PARA RECIBIR NOTIFICACIONES:<br/>
+                                    <b>{{parametros.solicitud.direccionCostaRica}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    TELÉFONO EN COSTA RICA:<br/>
+                                    <b>{{parametros.solicitud.telefonoCostaRica}}</b>
+                                </td>
+                                <td colspan="2">
+                                    DISTRITO ELECTORAL: (en cédula de identidad):<br/>
+                                    <b>{{parametros.solicitud.domicilioElectoral}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" bgcolor="#D3D3D3" align="center">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" colspan="2" valign="top">
+                                    OBSERVACIONES:<br/>
+                                    {{parametros.solicitud.observacionesComentariosSolicitud?parametros.solicitud.observacionesComentariosSolicitud.toString().substring(0,500):''}}
+                                </td>
+                                <td colspan="2" bgcolor="#D3D3D3" align="center">
+                                    <b>HUELLAS DACTILARES:</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#D3D3D3" align="center">
+                                    SECUNDARIA
+                                </td>
+                                <td bgcolor="#D3D3D3" align="center">
+                                    PRIMARIA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="middle" height="40">
+                                    MANO <br/>IZQUIERDA
+                                </td>
+                                <td align="center" valign="middle">
+                                    MANO <br/>DERECHA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    FIRMA DEL SOLICITANTE
+                                </td>
+                                <td rowspan="2" align="center" style="height:30px;">
+                                    <!-- <img data-ng-src="{{urlBase}}/Presentacion/static/img/firma.png" class="bdr_img mbm" data-ng-if="parametros.adjuntos.fotografia.nombreArchivo===null||parametros.adjuntos.fotografia.nombreArchivo===''"> -->
+                                    <img data-ng-src="{{urlBase}}/ver.ashx?f={{parametros.adjuntos.fotografia.nombreArchivo}}" class="bdr_img mbm" data-ng-if="parametros.adjuntos.fotografia.nombreArchivo!==null&&parametros.adjuntos.fotografia.nombreArchivo!==''" style="width:105px; height:131px;">
+                                </td>
+                                <td align="center" style="height:30px;">
+                                    DEDO: {{parametros.adjuntos.dactilares.izquierda.dedo}}
+                                </td>
+                                <td align="center" style="height:30px;">
+                                    DEDO: {{parametros.adjuntos.dactilares.derecha.dedo}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" align="center" style="height:99px;">
+                                    <img data-ng-src="{{urlBase}}/Presentacion/static/img/firma.png" class="bdr_img mbm" data-ng-if="parametros.adjuntos.firma.nombreArchivo===null||parametros.adjuntos.firma.nombreArchivo===''" style="width:240px; height:113px;">
+                                    <img data-ng-src="{{urlBase}}/ver.ashx?f={{parametros.adjuntos.firma.nombreArchivo}}" class="bdr_img mbm" data-ng-if="parametros.adjuntos.firma.nombreArchivo!==null&&parametros.adjuntos.firma.nombreArchivo!==''" style="width:240px; height:113px;">
+                                </td>
+                                <td valign="top" align="center" style="height:99px;">
+                                    <img data-ng-src="{{urlBase}}/Presentacion/static/img/huella_izquierda.png" class="bdr_img mbm" data-ng-if="parametros.adjuntos.dactilares.izquierda.nombreArchivo===null||parametros.adjuntos.dactilares.izquierda.nombreArchivo===''" style="width:93px; height:99px;">
+                                    <img data-ng-src="{{urlBase}}/ver.ashx?f={{parametros.adjuntos.dactilares.izquierda.nombreArchivo}}" class="bdr_img mbm" data-ng-if="parametros.adjuntos.dactilares.izquierda.nombreArchivo!==null&&parametros.adjuntos.dactilares.izquierda.nombreArchivo!==''" style="width:93px; height:99px;">
+                                </td>
+                                <td valign="top" align="center" style="height:99px;">
+                                    <img data-ng-src="{{urlBase}}/Presentacion/static/img/huella.png" class="bdr_img mbm" data-ng-if="parametros.adjuntos.dactilares.derecha.nombreArchivo===null||parametros.adjuntos.dactilares.derecha.nombreArchivo===''" style="width:93px; height:99px;">
+                                    <img data-ng-src="{{urlBase}}/ver.ashx?f={{parametros.adjuntos.dactilares.derecha.nombreArchivo}}" class="bdr_img mbm" data-ng-if="parametros.adjuntos.dactilares.derecha.nombreArchivo!==null&&parametros.adjuntos.dactilares.derecha.nombreArchivo!==''" style="width:93px; height:99px;">
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- </div> -->
+                    </div>
+                    <!--<div class="page-break"></div>-->
+                    <div data-ng-class="{'page-break':estadisticasPagResto.length > 0}"></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../app/data/config.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.min.js"></script>
+        <script type="text/javascript" src="../../static/js/moment/moment.es.js"></script>
+        <script type="text/javascript" src="../../static/js/core/jquery.appajax.js"></script>
+        <script type="text/javascript" src="../../static/js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../../app/print.js"></script>
+        <script type="text/javascript">
+            function appCtrl($scope, $timeout, ajaxFactory, hashFactory, dateFactory, printFactory) {
+
+                var ng = $scope;
+
+                ng.prRemotoGeneral = 'prGeneral.aspx/';
+
+                ng.urlBase=APP.DATA.CONFIG.URL_BASE;
+
+                ng.preload = true;
+
+                /* swicth por iframe */
+                if (window.opener == null) {
+                    //poup
+                    parametrosFrame = parametrosFrame;
+                } else {
+                    //iframe
+                    parametrosFrame = window.opener.parametrosFrame;
+                }
+                /* /swicth por iframe */
+
+                var obtenerParametros = function (parametros) {
+                    ng.parametros = parametros;
+                    console.log(parametros, 'parametros');
+                    var listaImpresion = printFactory.datosImprimir(ng.parametros.estadisticas, 24, 3);
+                    ng.estadisticasPagPrimera = listaImpresion.listaPrimeraPagina;
+                    ng.estadisticasPagResto = listaImpresion.listaCantidadPaginasImpresas;
+
+                };
+
+                var obtenerPaginacion = function(){
+                    var paginas = angular.element('.wrap')
+                    
+                    angular.element.each(paginas, function(key, pagina){
+                        angular.element(pagina).find('.nroPagina').html(key + 1 + '/' + paginas.length);
+                    });
+                    
+                };
+
+                var obtenerFechaSistema = function () {
+                    // imprimir();
+                    var parametros = {
+
+                    };
+
+                    ajaxFactory.consultar(ng.prRemotoGeneral + 'ObtenerFechaSistema', parametros, function(data){
+                        ng.safeApply(function(){
+                            if (data && data.success) {
+                                ng.fechaPiePagina = dateFactory.convertirDateTime(data.respuesta, 'DD/MM/YYYY');
+                                obtenerPaginacion();
+                                imprimir();    
+                            }else{ 
+                                ng.preload = false;
+                            }
+                        });
+                        }, function(error){
+                            ng.preload = false;
+                        }, function(xhr){
+                            ng.preload = true;  
+                    });
+
+
+                };
+
+                var imprimir = function () {
+                    window.focus();
+                    $timeout(function () {
+                        window.print();
+                        ng.preload = false;
+                        ng.btnprint = true;
+                    }, 250);
+                };
+
+                ng.init = function () {
+                    obtenerParametros(parametrosFrame);
+                    obtenerFechaSistema();
+
+                };
+                ng.safeApply = function (fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && (typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
+                ng.init();
+            }
+        </script>
+    </body>
+</html>

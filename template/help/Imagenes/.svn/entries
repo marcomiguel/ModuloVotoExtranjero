@@ -1,0 +1,49 @@
+10
+
+dir
+27244
+https://devext01.scytl.net/svn/CostaRicaSIE/trunk/src/Modulos/VotoExtranjero/Presentacion/PresentacionVotoExtranjeroInterno/Presentacion/template/help/Imagenes
+https://devext01.scytl.net/svn/CostaRicaSIE
+
+
+
+2014-11-07T06:09:27.123809Z
+18683
+jrojas
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+c031bd4d-8b5b-445a-91dc-7efd79e5d685
+
+Administrar_ReporteDeUsuarios
+dir
+
+Administrar_Excepciones
+dir
+
+Reportes_Estadisticas
+dir
+
+Reportes_HistoricoDeSolicitudes
+dir
+
+RecepcionDeSolicitudes
+dir
+
+SeguimientoDeSolicitudes
+dir
+
+Administrar_Parametros
+dir
+

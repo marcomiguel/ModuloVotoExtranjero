@@ -1,0 +1,44 @@
+{
+    "success":true,
+    "lista":[
+                {
+                 "alias":"",
+                 "nombre":"Administración",
+                 "icono":"icono-administrar",
+                 "menu":[
+                            {"alias":"admAdministrarExcepciones","nombre":"Excepciones"},
+                            {"alias":"admAdministrarParametros","nombre":"Parametros"}
+                        ]
+                },{
+                 "alias":"",
+                 "nombre":"Recepción",
+                 "icono":"icono-recepcion",
+                 "menu":[
+                            {"alias":"rcpRecepcionSolicitudes","nombre":"Recepción de solicitudes"}
+                        ]
+                },{
+                 "alias":"",
+                 "nombre":"Seguimiento",
+                 "icono":"icono-seguimiento",
+                 "menu":[
+                            {"alias":"segSeguimientoSolicitudes","nombre":"Seguimiento de solicitudes"}
+                        ]
+                },{
+                 "alias":"",
+                 "nombre":"Reportes",
+                 "icono":"icono-registrar",
+                 "menu":[
+                            {"alias":"repHistoricoSolicitudes","nombre":"Histórico de solicitudes"},
+							{"alias":"repReporteUsuarios","nombre":"Reporte de Usuarios"}
+                        ]
+                },{
+                 "alias":"",
+                 "nombre":"Demos",
+                 "icono":"icono-registrar",
+                 "menu":[
+                            {"alias":"demo","nombre":"Demo"},
+                            {"alias":"demo2","nombre":"Demo2"}
+                        ]
+                }
+    ]
+}

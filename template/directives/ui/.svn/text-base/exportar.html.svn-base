@@ -1,0 +1,35 @@
+<div class="popover-print">
+    <button class="btn btn-link" onclick="jQuery(this).next().toggleClass('dblock');" data-ng-disabled="stringToBoolean(eDisabled)">
+        <i class="icon-scytl-export"></i>{{textLinkTmp}}					
+    </button>
+    <div class="popover popover-scytl {{positionTmp}}">
+        <div class="arrow"></div>
+        <i class="close icon-scytl-clear" title="Cerrar"></i>
+        <h6 class="popover-title"><i class="icon-scytl-export"></i> {{textTittleTemp}}</h6>
+        <div class="popover-content">
+            
+            <div data-ng-if="listaOpcionesTemp.length >0 && isOk">
+                <ul class="unstyled lista_acciones">
+                    <li data-ng-repeat="items in listaOpcionesTemp">
+                        <button style="width:85px" type="button" class="btn btn-green" data-ng-click="exportar(items.archivo)">
+                            <img data-ng-src="{{items.icono}}" alt="{{items.alt}}" /> {{items.archivo}}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            
+            <div data-ng-if="!isOK && isOk == false">
+                <span class="text-error">{{mensajes.M001}}</span><br />
+                <span><b>Tipo:</b> {{isPlantillaTemp? 'Plantilla':'Reporting'}}</span>
+                <ul class="unstyled">
+                    <li><b>Lista Errores</b>
+                        <ul>
+                            <li data-ng-repeat="error in listaErrores">{{error.mensaje}}</li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>    
+</div>       

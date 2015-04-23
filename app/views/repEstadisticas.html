@@ -1,0 +1,150 @@
+﻿						<!-- Titulo -->
+						<h2>Estadísticas </h2>
+						<form class="form-horizontal" name="frmFiltro" novalidate data-ng-init="cargarCombos()">
+							<div class="mod">
+								<div class="hd">
+									<h3>Filtrar por:</h3>
+								</div>
+								<div class="bd">
+                                    <div class="control-group big " >
+                                        <label class="control-label">País:</label>
+                                        	<div class="filters-mod">
+												<div class="pull-left">
+													<select  data-ng-model="objModel.pais" data-ng-change="cambioPais()">
+														<option value="" selected="selected">- Todos -</option>
+														<option value="{{lp.idCanton}}" data-ng-repeat="lp in listaPaises" >{{lp.descripcion}}</option>
+													</select>
+												</div>
+											</div>
+                                    </div>
+									<div class="control-group big " >
+                                        <label class="control-label">Consulado:</label>
+                                        	<div class="filters-mod">
+												<div class="pull-left">
+													<select 
+														ng-options="lc as lc.descripcion for lc in listaConsulados" 
+														ng-model="itemConsulado" ng-change="cambioConsulado()">
+														<option value="" selected="selected">- Todos -</option>
+													</select>
+												</div>
+											</div>
+                                    </div>
+									
+									<div class="control-group big " >
+                                        <label class="control-label">Género:</label>
+                                        	<div class="filters-mod">
+												<div class="pull-left">
+													<select data-ng-model="objModel.genero" >
+														<option value="" selected="selected">- Todos -</option>
+														<option value="1">Masculino</option>
+														<option value="2">Femenino</option>
+													</select>
+												</div>
+											</div>
+                                    </div>
+									<div class="control-group big " >
+                                        <label class="control-label">Estado de Solicitud:</label>
+                                        	<div class="filters-mod">
+												<div class="pull-left">
+													<select data-ng-model="itemEstado.idEstadoSolicitud" data-ng-change="cambiaEstado(itemEstado.idEstadoSolicitud)">
+													<option value="" selected="selected" >- Todos -</option>
+													<option value="{{l.idEstadoSolicitud}}" data-ng-repeat="l in listaEstadosSolicitudes" >{{l.descripcionEstado}}</option>
+												</select>
+												</div>
+											</div>
+                                    </div>
+									
+									<div class="control-group big ng-class: {error:frmFiltro.estacion.$error.pattern || frmFiltro.estacion.$error.maxlength}">
+										<label class="control-label">Estación: </label>
+										
+										<div class="pull-left">
+											<input type="text" name="estacion" class="input-mini" data-ng-model="objModel.estacion" data-ng-maxlength="3" data-ng-trim="false" data-ng-pattern="onlyNumbers" data-ng-keydown="enterBuscar(frmFiltro,$event)">
+										    <div class="help-block" data-ng-show="frmFiltro.estacion.$error.maxlength"><i class="icon-scytl-error"></i>{{mensajesApp.HEL003(3)}}</div>
+                                            <div class="help-block" data-ng-show="frmFiltro.estacion.$error.pattern"><i class="icon-scytl-error"></i>{{mensajesApp.HEL022}}</div>
+                                        </div>
+									</div>
+									
+									<div class="flow-actions">
+										<button class="btn btn-blue" type="button" id="btnFiltro" data-ng-disabled="frmFiltro.$invalid" data-ng-click="clicBuscar(frmFiltro)">Buscar</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="bd" data-ng-show="mostrarPreloadBuscar">
+								<div class="msj-preload msj-preload-20"><i class="icon-preload"></i>{{mensajesApp.SYS001}}</div>
+							</div>
+							
+							<h4 data-ng-show="mostrarGrillaSolicitudes">Resultados de la búsqueda:</h4>
+							
+							<div data-ui-alerta="" data-opciones="alertaListaSolicitudesVacia"></div>
+							<div class="mod" data-ng-show="mostrarGrillaSolicitudes">
+								<div class="hd" >
+									<h3><i class="icon-list"></i>Cantidad de solicitudes</h3>
+									<div class="actions-mod">
+										<export position="reportes.exportar.exportarEstadisticas.posicion" opciones="reportes.exportar.exportarEstadisticas.opciones"  is-plantilla="false" url="'RSRepObtenerSolicitudesDesdeEstadistica'" parametros="parametrosExport"></export>
+										<button class="btn-link" data-ng-click="clickImprimirReporteEstadisticas()"><i class="icon-scytl-print"></i>Imprimir</button>
+									</div>
+								</div>
+								<div class="bd">
+									<div class="mod mod-lined">
+										<div class="bd" id="paginacion">
+											
+											<div class="filters-mod">
+												<div class="pull-left">
+													<select class="input-mini" data-ng-model="cantidadRegistrosModel" data-ng-change="cambioPaginacionCantidad()">
+														<option value="10">10</option>
+														<option value="20">20</option>
+														<option value="40">40</option>
+														<option value="60">60</option>
+														<option value="100">100</option>
+													</select>
+													<span>entradas</span>
+												</div>
+											</div>
+											<!-- table-zebra -->
+											<table class="table-zebra table-hover">
+												<thead>
+													<tr>
+														<th>N°</th>
+                            <th>País</th>
+														<th>Consulado</th>
+														<th>Género</th>
+														<th>Estación</th>
+														<th>Estado de Solicitud</th>
+														<th>Total de solicitudes</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr data-ng-repeat="ls in listaSolicitudes" data-ng-class="{'seleccion-fila': indice==$index}">
+														<td class="mano">{{($index+1)+(cantidadRegistrosModel*(currentPage-1))}}</td>
+														<td class="mano">{{ls.pais}}</td>
+                                                        <td class="mano">{{ls.consulado}}</td>
+														<td class="mano">{{ls.genero}}</td>
+														<td class="mano">{{ls.estacion}}</td>
+														<td class="mano">{{ls.estadoSolicitud}}</td>
+														<td class="mano">{{ls.totalSolicitudes}}</td>
+													</tr>
+													
+												</tbody>
+											</table>
+											<!-- /table-zebra -->
+											<pagination 
+												on-select-page="onCambiarPaginacion(page)" 
+												total-registros="totalRegistros" 
+												seleccion-mostrar="cantidadRegistrosModel"
+												num-pages="noOfPages"
+												current-page="currentPage"
+												max-size="maxsize" 
+												boundary-links="true" 
+												class="pagination-small" previous-text="&lsaquo;"
+												next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+											</pagination>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+
+		
+		

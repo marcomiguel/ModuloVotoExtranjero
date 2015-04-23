@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="css/oocss.css" rel="stylesheet" />
+	<style type="text/css">
+		#pagina-ayuda{
+			background-color:#fff;
+			padding:15px;
+		}
+	</style>
+</head>
+<body>
+	<div id="pagina-ayuda">
+	
+		<!-- Aquí HTML de ayuda -->
+	
+		<h3><b>ESTADÍSTICAS</b></h3>
+        
+        <p>En esta sección se podrá visualizar la cantidad de <b>Solicitudes de Traslado Electoral</b> en base a un conjunto de filtros.</p>
+        
+        <br>
+        
+        <p><b>Los Filtros de búsqueda</b> que se pueden aplicar son: <u>País</u>, <u>Consulado</u>: Los valores que contiene será de acuerdo al País seleccionado, <u>Género</u>, <u>Estado de Solicitud</u> y <u>Estación</u>.</p>
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\Filtros_Estadisticas.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        <p>Para realizar la búsqueda se tendrá que ingresar y/o seleccionar los filtros que requiera y luego seleccionar el botón <img src="template\help\Imagenes\Reportes_Estadisticas\Btn_Buscar.png" alt="SIE">. 
+            
+        <p>Al ingresar a esta pantalla en las listas <b>País</b>, <b>Consulado</b>,<b>Género</b> y <b>Estado de Solicitud</b>, se mostrará activo el valor <u>-Todos-</u>.</p>
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\Listados_ValorActivoTodos.png" alt="SIE" border=0>
+        </div>  
+        <br>
+             
+        <p>Si <b>No</b> se encontraron resultados de búsqueda, se mostrará el mensaje <b>No se ha encontrado ningún registro de solicitud con lo datos proporcionados</b>.</p> 
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\Msj_NoSeEncontroResultados.png" alt="SIE" border=0>
+        </div>  
+        <br> 
+        
+        
+        <p>Si al ingresar a la sección de <b>Estadísticas</b>, no ingresa y/o selecciona algún filtro, y  selecciona el botón <img src="template\help\Imagenes\Reportes_Estadisticas\Btn_Buscar.png" alt="SIE">, se mostrarán como resultados de la búsqueda todos los datos encontrados, ya que por defecto todas las listas tienen el estado activo <u>-Todos-</u>.</p>    
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\ResultadoBusqueda_Todos.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        
+        <ul>
+        <b><li type="circle">Exportar</li></b>
+            
+        <p>Si desea <b>Exportar</b>, seleccione el link <img src="template\help\Imagenes\Reportes_Estadisticas\Link_Exportar.png" alt="SIE">, el cual mostrará la opción de exportar al formato de <b>Excel</b>.</p> 
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\Link_Exportar_Excel.png" alt="SIE" border=0>
+        </div>  
+        <br> 
+           
+        <p>Al seleccionar el botón <img src="template\help\Imagenes\Reportes_Estadisticas\Btn_Excel.png" alt="SIE"> se descargará de manera automática en la ventana propia del navegador, el archivo excel con la información contenida.</p>     
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\Descargado_ReporteExcel.png" alt="SIE" border=0>
+        </div>  
+        <br> <br>     
+                
+   
+        <b><li type="circle">Imprimir</li></b>
+            
+        <p>Si desea <b>Imprimir</b>, seleccione el link <img src="template\help\Imagenes\Reportes_Estadisticas\Link_Imprimir.png" alt="SIE">, el cual abrirá una ventana de previsualización de la impresión.</p> 
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\Reportes_Estadisticas\ReporteGenerado_Estadisticas.png" alt="SIE" border=1>
+        </div>  
+        <br>       
+        </ul>
+        
+        
+        
+        
+        <p><b>Tener en cuenta:</b></p> 
+        
+        <ul>
+        <li type="circle">El botón <img src="template\help\Imagenes\Reportes_Estadisticas\Btn_Buscar.png" alt="SIE"> siempre se mostrará habilitado .</li>
+        <li type="circle">De acuerdo a los filtros que ingrese y/o seleccione se mostrará el resultado, se mostrará la solicitud (s) que cumplan con dichos criterios.</li>
+        </ul>
+        </p> 
+              
+        <!-- Fin HTML de ayuda -->
+        
+	</div>
+		
+</body>
+</html>

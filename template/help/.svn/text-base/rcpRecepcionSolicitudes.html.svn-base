@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="css/oocss.css" rel="stylesheet" />
+	<style type="text/css">
+		#pagina-ayuda{
+			background-color:#fff;
+			padding:15px;
+		}
+	</style>
+</head>
+<body>
+	<div id="pagina-ayuda">
+	
+		<!-- Aquí HTML de ayuda -->
+	
+		<h3><b>RECEPCIÓN DE SOLICITUDES DE TRASLADO ELECTORAL VÍA WEB</b></h3>
+        
+        <p>En esta sección podrá realizar la revisión de las <b>Solicitudes de Traslado Electoral</b>, las cuales han sido enviadas por los ciudadanos interesados. Así mismo se muestran filtros para que pueda realizar una búsqueda más específica. Las solicitudes que se mostrarán en esta sección son aquellas que tengan estado <u>Solicitud Recibida</u> o que se encuentren en <u>Verificación de Datos</u>.</p>
+        
+        <br>
+        
+        <p><b>Los Filtros de búsqueda</b> que se pueden aplicar son: <u>N° de cédula</u>, <u>Primer apellido</u>, <u>Segundo apellido</u> y <u>Nombre</u>.</p>
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\Filtros_RecepcionDeSolicitud.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        <p>Para realizar la búsqueda se tendrá que ingresar información en los filtros que requiera aplicar y luego seleccionar el botón <img src="template\help\Imagenes\RecepcionDeSolicitudes\Btn_Buscar.png" alt="SIE">, botón el cual siempre se mostrará habilitado. 
+            
+            
+        <p>Si al ingresar a la sección de <b>Recepción de solicitudes de traslado electoral vía web</b>, no se ingresa información en ningún filtro, y se selecciona el botón <img src="template\help\Imagenes\RecepcionDeSolicitudes\Btn_Buscar.png" alt="SIE">, se mostrarán todas las solicitudes que tengan estado "Solicitud Recibida".</p>    
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\ResultadoBusqueda_Todos.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        
+        <p>Una vez mostrados los <b>Resultados de la búsqueda</b>, deberá seleccionar la solicitud que requiere revisar, para esto debe seleccionar dentro de la grilla: la fila de la solicitud correspondiente.</p>    
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\Seleccionar_SolicitudRevisar.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        
+        <p>Al seleccionar la solicitud, en la parte inferior se mostrará el detalle completo de la solicitud enviada por el ciudadano interesado, donde podrá realizar la revisión de los datos e imagenes adjuntas a dicha solicitud. Los campos aparecerán deshabilitados y la información no puede ser modificada.</p>
+        
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\Detalle_SolicitudRecibida.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+                
+        <p><b>Tener en cuenta:</b></p> 
+        
+        <ul>
+        <li type="circle">El botón <img src="template\help\Imagenes\RecepcionDeSolicitudes\Btn_EnviarAlSICI.png" alt="SIE"> se mostrará habilitado, pero si selecciona alguna excepción asociada a una de las imágenes, el botón se deshabilitará hasta que seleccione también alguna excepción del listado de la parte inferior de <b>Excepciones</b>.</li>
+        <br>
+            
+        <li type="circle">Si encuentra que alguna de las imágenes adjuntas no corresponde, a lo requerido deberá seleccionar el casillero asociado a la imagen.</li>
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\ExcepcionPorImagen.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        <li type="circle">Podrá ingresar Observaciones y/o comentarios, así como indicar alguna <b>Excepción (s)</b> presente en la solicitud, si es que así lo requiere.</li>   
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\ObservacionesComentarios_Excepciones.png" alt="SIE" border=0>
+        </div>  
+        <br>
+            
+         <li type="circle">Una vez terminada la revisión de la solicitud, seleccione el botón <img src="template\help\Imagenes\RecepcionDeSolicitudes\Btn_EnviarAlSICI.png" alt="SIE"> para enviar la solicitud al SICI.</li> 
+            
+        <br>
+            
+         <li type="circle">Una vez enviada la solicitud, el sistema le mostrará un mensaje de éxito: <b>La solicitud fue enviada éxitosamente</b>.</li>   
+            
+         <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\RecepcionDeSolicitudes\MsjExito.png" alt="SIE" border=0>
+        </div>  
+        <br>  
+            
+        </ul>
+        </p> 
+              
+        <!-- Fin HTML de ayuda -->
+        
+	</div>
+		
+</body>
+</html>

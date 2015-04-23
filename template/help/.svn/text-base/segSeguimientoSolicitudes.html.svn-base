@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="css/oocss.css" rel="stylesheet" />
+	<style type="text/css">
+		#pagina-ayuda{
+			background-color:#fff;
+			padding:15px;
+		}
+	</style>
+</head>
+<body>
+	<div id="pagina-ayuda">
+	
+		<!-- Aquí HTML de ayuda -->
+	
+        <h3><b>SEGUIMIENTO DE SOLICITUDES</b></h3>	
+        <p>En esta sección se podrá visualizar la lista de <b>Solicitudes de Traslado Electoral</b> registradas, así también se cuenta con filtros para realizar búsquedas sobre la lista de solicitudes. En la lista las solicitudes de muestran con su último estado.</p>
+        
+        <br>
+        
+        <p><b>Los Filtros de búsqueda</b> que se pueden aplicar son: <u>N° de cédula</u>, <u>N° de Solicitud</u>, <u>Primer apellido</u>, <u>Segundo apellido</u>, <u>Nombre</u> y <u>Estado de Solicitud</u>.</p>
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Filtros_SeguimientoDeSolicitudes.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        
+        <p>Para realizar la búsqueda se tendrá que ingresar y/o seleccionar los filtros que requiera y luego seleccionar el botón <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Btn_Buscar.png" alt="SIE">. 
+            
+        <p>Al ingresar a esta pantalla en la lista <b>Estado de Solicitud</b> se mostrará activo el valor <u>-Todos-</u>.</p>
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Lista_EstadoSolicitud_Todos.png" alt="SIE" border=0>
+        </div>  
+        <br>
+             
+        <p>Si <b>No</b> se encontraron resultados de búsqueda, se mostrará el mensaje <b>No se ha encontrado ningún registro de solicitud con lo datos proporcionados</b>.</p> 
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Msj_NoSeEncontroResultados.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        <p>Si al ingresar a la sección de <b>Seguimiento de solicitudes</b>, no ingresa y/o selecciona algún filtro, y  selecciona el botón <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Btn_Buscar.png" alt="SIE">, se mostrarán todas las solicitudes sin distintición de estado, ya que por defecto en la lista de <b>Estado de Solicitud</b> está activo <u>-Todos-</u>.</p>    
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\ResultadoBusqueda_Todos.png" alt="SIE" border=0>
+        </div>  
+        <br>
+        
+        <p>Si requiere consultar el detalle de seguimiento de alguna de las solicitudes, deberá seleccionar de la <b>Lista de solicitudes</b>: La fila de la solicitud que requiere.</p>    
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Seleccionar_SolicitudSeguimiento.png" alt="SIE" border=0>
+        </div>  
+        
+        
+        <p>Una vez seleccionada la solicitud que requiere, se mostrará en la parte inferior el detalle de la misma. Los campos aparecen deshabilitados, no se puede modificar la información.</p>    
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Detalle_SolicitudSeguimiento.png" alt="SIE" border=0>
+        </div>  
+        
+        
+        <ul>
+        <b><li type="circle">Exportar</li></b>
+            
+        <p>Si desea <b>Exportar</b>, seleccione el link <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Link_Exportar.png" alt="SIE">, el cual mostrará la opción de exportar al formato de <b>Excel</b>.</p> 
+        
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Link_Exportar_Excel.png" alt="SIE" border=0>
+        </div>  
+        <br> 
+           
+        <p>Al seleccionar el botón <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Btn_Excel.png" alt="SIE"> se descargará de manera automática en la ventana propia del navegador, el archivo excel con la información contenida.</p>     
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Descargado_ReporteExcel.png" alt="SIE" border=0>
+        </div>  
+        <br> <br>     
+                
+   
+        <b><li type="circle">Imprimir</li></b>
+            
+        <p>Si desea <b>Imprimir</b>, seleccione el link <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Link_Imprimir.png" alt="SIE">, el cual abrirá una ventana de previsualización de la impresión.</p> 
+            
+        <div class=""help-images text-center mbm"">
+            <img src="template\help\Imagenes\SeguimientoDeSolicitudes\ReporteGenerado_SeguimientoDeSolicitudes.png" alt="SIE" border=1>
+        </div>  
+        <br>       
+        </ul>
+        
+        
+        
+        
+        <p><b>Tener en cuenta:</b></p> 
+        
+        <ul>
+        <li type="circle">El botón <img src="template\help\Imagenes\SeguimientoDeSolicitudes\Btn_Buscar.png" alt="SIE"> siempre se mostrará habilitado .</li>
+        <li type="circle">De acuerdo a los filtros que ingrese y/o seleccione se mostrará el resultado, se mostrará la solicitud (s) que cumplan con dichos criterios.</li>
+        </ul>
+        </p> 
+              
+        <!-- Fin HTML de ayuda -->
+        
+	</div>
+		
+</body>
+</html>
